@@ -45,7 +45,7 @@ img, svg { display: block; }
 .nav-link:hover::after { transform: scaleX(1); }
 .nav-link:hover { color: var(--ink); }
 .search { display: none; position: relative; width: 220px; margin-left: auto; }
-.search input { font-size: 14px; }
+.search input { font-size: 14px; height: 32px; }
 .search input, .field, select, textarea {
   width: 100%;
   border: 1px solid transparent;
@@ -57,7 +57,7 @@ img, svg { display: block; }
 }
 .field, select, textarea { background: #fff; border-color: var(--line); padding: 0 12px; height: 40px; border-radius: 12px; }
 textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: vertical; }
-.search-icon { position: absolute; left: 10px; top: 8px; color: #9a9aa0; }
+.search-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: #9a9aa0; }
 .search-icon svg, .icon-btn svg, .socials svg, .see-all svg, .heart svg, .arrows svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 .tools { display: flex; margin-left: auto; }
 .search + .tools { margin-left: 4px; }
@@ -74,10 +74,28 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
 .search-label { margin: 6px 10px; font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
 .only-mobile { display: inline-flex; }
 @media (min-width: 1024px) {
-  .nav, .search { display: flex; }
-  .search { display: block; }
+  .bar { position: relative; display: flex; align-items: stretch; }
+  .nav {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    transform: translateX(-50%);
+  }
+  .search {
+    display: block;
+    width: min(660px, calc(50% - 390px));
+    height: 100%;
+    margin: 0 0 0 auto;
+  }
+  .search input { height: 100%; border-radius: 0; padding-left: 44px; }
+  .search-results { width: 100%; }
   .only-mobile { display: none; }
-  .tools { margin-left: 0; }
+  .tools { margin-left: 8px; align-self: center; }
 }
 
 .banner { position: relative; height: 520px; overflow: hidden; border-radius: 0; color: #fff; }
