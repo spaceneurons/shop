@@ -6,7 +6,11 @@
   --soft: #6a6a70;
   --line: rgba(0, 0, 0, 0.08);
   --search: #f3f2f2;
+  --gutter: 16px;
   color-scheme: light;
+}
+@media (min-width: 800px) {
+  :root { --gutter: 24px; }
 }
 
 * { box-sizing: border-box; }
@@ -124,6 +128,9 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
 .arrows button { width: 32px; height: 32px; border: 1px solid rgba(255, 255, 255, 0.8); color: #fff; background: transparent; }
 .arrows button:hover { background: rgba(255, 255, 255, 0.15); }
 
+.block.inset .block-head,
+.block.inset .looks,
+.block.inset .products { padding-left: var(--gutter); padding-right: var(--gutter); }
 .block { margin-top: 32px; }
 .block.loose { margin-top: 48px; }
 .block-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 14px; }

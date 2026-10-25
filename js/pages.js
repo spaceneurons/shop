@@ -7,8 +7,8 @@ const LumiPages = (() => {
       const generations = LUMI.generations.map((item) => LumiUI.lookCard(item)).join("");
       main.innerHTML = `
         <div class="hero-wrap">${LumiUI.banner(LUMI.hero)}</div>
-        ${LumiUI.section("Выберите категорию", "catalog.html", `<div class="looks">${looks}</div>`)}
-        ${LumiUI.section("Новые поступления", "catalog.html?sort=new", `<div class="products home">${fresh}</div>`)}
+        ${LumiUI.section("Выберите категорию", "catalog.html", `<div class="looks">${looks}</div>`, "inset")}
+        ${LumiUI.section("Новые поступления", "catalog.html?sort=new", `<div class="products home">${fresh}</div>`, "inset")}
         <div class="promo-wrap">${LumiUI.banner(LUMI.promo, true)}</div>
         ${LumiUI.section("Для каждого поколения", "catalog.html", `<div class="looks gens">${generations}</div>`, "loose")}
       `;
