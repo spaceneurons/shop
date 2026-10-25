@@ -3,7 +3,7 @@ const LumiPages = (() => {
     document.title = "LUMI — стиль в каждом моменте";
     LumiUI.boot((main) => {
       const looks = LUMI.categories.map((item) => LumiUI.lookCard(item)).join("");
-      const fresh = LUMI.products.filter((item) => item.home).map((item) => LumiUI.productCard(item)).join("");
+      const fresh = LUMI.products.filter((item) => item.home).slice(0, 4).map((item) => LumiUI.productCard(item)).join("");
       const generations = LUMI.generations.map((item) => LumiUI.lookCard(item)).join("");
       main.innerHTML = `
         <div class="hero-wrap">${LumiUI.banner(LUMI.hero)}</div>
