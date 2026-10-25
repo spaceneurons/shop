@@ -84,4 +84,9 @@ LUMI.photos = Array.from({ length: 66 }, (_, index) => `image ${index + 12}.png`
   slots.forEach((item, index) => {
     item.image = deck[index % deck.length];
   });
+  const heroStyle = LUMI.hero.find((item) => item.id === "new");
+  if (heroStyle) {
+    heroStyle.image = "hero-style.png";
+    heroStyle.focus = "right center";
+  }
 })();
