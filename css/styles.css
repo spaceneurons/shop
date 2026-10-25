@@ -37,7 +37,7 @@ img, svg { display: block; }
 .logo { font-weight: 500; letter-spacing: 0.42em; font-size: 16px; }
 .header { position: sticky; top: 0; z-index: 20; background: var(--bg); }
 .header.is-stuck { border-bottom: 1px solid rgba(0, 0, 0, 0.05); background: rgba(251, 251, 251, 0.9); backdrop-filter: blur(12px); }
-.bar { display: flex; align-items: center; gap: 12px; height: 64px; }
+.bar { display: flex; align-items: center; gap: 12px; height: 64px; padding-left: var(--gutter); padding-right: var(--gutter); }
 .nav { display: none; gap: 16px; min-width: 0; flex: 1; }
 .nav-link { position: relative; font-size: 16px; font-weight: 400; color: var(--nav); white-space: nowrap; }
 .nav-link::after, .see-all svg { transition: transform 0.3s ease; }
@@ -178,7 +178,7 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
 .promo-wrap { margin-top: 36px; }
 
 .footer { margin-top: 40px; }
-.footer-row { display: flex; flex-direction: column; gap: 24px; padding: 32px 20px 40px; }
+.footer-row { display: flex; flex-direction: column; gap: 24px; padding: 32px var(--gutter) 40px; }
 .footer-links { display: flex; flex-direction: column; gap: 16px; }
 .footer nav { display: flex; flex-wrap: wrap; gap: 8px 20px; }
 .footer .nav-link { color: var(--soft); font-size: 14px; }
