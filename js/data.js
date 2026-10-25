@@ -73,3 +73,21 @@ LUMI.defaultSize = (category) => {
   if (category === "girls" || category === "boys") return "116";
   return "M";
 };
+
+LUMI.photos = Array.from({ length: 66 }, (_, index) => `image ${index + 12}.png`);
+
+(() => {
+  const deck = LUMI.photos.slice();
+  let seed = 20261025;
+  for (let index = deck.length - 1; index > 0; index -= 1) {
+    seed = (seed * 16807 + 11) % 2147483647;
+    const swap = seed % (index + 1);
+    const current = deck[index];
+    deck[index] = deck[swap];
+    deck[swap] = current;
+  }
+  const slots = [...LUMI.products, ...LUMI.categories, ...LUMI.generations, ...LUMI.hero, ...LUMI.promo];
+  slots.forEach((item, index) => {
+    item.image = deck[index % deck.length];
+  });
+})();

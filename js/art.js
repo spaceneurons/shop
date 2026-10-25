@@ -1,4 +1,8 @@
 function lumiArt(options) {
+  if (options.image) {
+    const src = `images/${encodeURIComponent(options.image)}`;
+    return `<div class="art ${options.mode === "packshot" ? "art-studio" : ""}"><img class="photo" src="${src}" alt=""></div>`;
+  }
   const palette = LUMI.palettes[options.palette] || LUMI.palettes.stone;
   const cloth = options.cloth || palette.cloth;
   const cloth2 = options.cloth2 || palette.cloth2;

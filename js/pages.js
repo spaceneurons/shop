@@ -104,7 +104,7 @@ const LumiPages = (() => {
         main.innerHTML = `<div class="page">
           <p class="crumbs"><a href="index.html">Главная</a> / <a href="catalog.html?category=${item.category}">${LumiUI.esc(category.name)}</a></p>
           <div class="product-layout">
-            <div class="product-photo">${lumiArt({ palette: "stone", garment: item.garment, cloth: item.cloth, cloth2: item.cloth2, mode: "packshot" })}</div>
+            <div class="product-photo">${lumiArt({ image: item.image, mode: "packshot" })}</div>
             <div>
               <p class="kicker">${LumiUI.esc(category.name)}</p>
               <h1 class="page-title">${LumiUI.esc(item.name)}</h1>

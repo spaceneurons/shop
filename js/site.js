@@ -315,7 +315,7 @@ const LumiUI = (() => {
 
   function paintWishlist() {
     const items = LumiStore.snapshot().wishlist.map(LUMI.product).filter(Boolean);
-    openSheet("right", `<h2>Избранное</h2><p class="muted">${items.length ? "Сохранено только в этом браузере." : "Отметьте сердце на карточке — вещь сохранится здесь."}</p><div class="sheet-list">${items.map((item) => `<div class="line"><a class="thumb" href="product.html?id=${item.id}">${lumiArt({ palette: "stone", garment: item.garment, cloth: item.cloth, cloth2: item.cloth2, mode: "packshot" })}</a><div><a href="product.html?id=${item.id}">${esc(item.name)}</a><p>${LUMI.money(item.price)}</p></div><button type="button" data-wish="${item.id}">Убрать</button></div>`).join("")}</div>`);
+    openSheet("right", `<h2>Избранное</h2><p class="muted">${items.length ? "Сохранено только в этом браузере." : "Отметьте сердце на карточке — вещь сохранится здесь."}</p><div class="sheet-list">${items.map((item) => `<div class="line"><a class="thumb" href="product.html?id=${item.id}">${lumiArt({ image: item.image, mode: "packshot" })}</a><div><a href="product.html?id=${item.id}">${esc(item.name)}</a><p>${LUMI.money(item.price)}</p></div><button type="button" data-wish="${item.id}">Убрать</button></div>`).join("")}</div>`);
   }
 
   function paintAccount() {
@@ -366,7 +366,7 @@ const LumiUI = (() => {
     } else {
       body = `<h2>Корзина</h2><p class="muted">Можно поменять размер и количество.</p>
         <div class="sheet-list">${lines.map((line) => `<div class="line">
-          <a class="thumb" href="product.html?id=${line.product.id}">${lumiArt({ palette: "stone", garment: line.product.garment, cloth: line.product.cloth, cloth2: line.product.cloth2, mode: "packshot" })}</a>
+          <a class="thumb" href="product.html?id=${line.product.id}">${lumiArt({ image: line.product.image, mode: "packshot" })}</a>
           <div class="line-body">
             <div class="line-top"><p>${esc(line.product.name)}</p><button type="button" data-remove data-id="${line.id}" data-size="${esc(line.size)}" aria-label="Удалить">✕</button></div>
             <label class="tiny">Размер<select data-resize="${esc(line.size)}" data-id="${line.id}">${LUMI.sizes(line.product.category).map((size) => `<option ${size === line.size ? "selected" : ""}>${esc(size)}</option>`).join("")}</select></label>
@@ -418,7 +418,7 @@ const LumiUI = (() => {
   function productCard(product) {
     return `<article class="product">
       <div class="product-media">
-        <a href="product.html?id=${product.id}" aria-label="${esc(product.name)}">${lumiArt({ palette: "stone", garment: product.garment, cloth: product.cloth, cloth2: product.cloth2, mode: "packshot" })}<span class="shine"></span></a>
+        <a href="product.html?id=${product.id}" aria-label="${esc(product.name)}">${lumiArt({ image: product.image, mode: "packshot" })}<span class="shine"></span></a>
         <button class="heart ${LumiStore.wished(product.id) ? "is-on" : ""}" type="button" data-wish="${product.id}" aria-label="В избранное" aria-pressed="${LumiStore.wished(product.id)}">${icon("heart")}</button>
         <button class="quick-add" type="button" data-add="${product.id}">В корзину</button>
       </div>
