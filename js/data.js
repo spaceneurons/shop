@@ -19,7 +19,6 @@ const LUMI = {
     { id: "girls", name: "Девочки", dative: "Девочкам", palette: "cream", garment: "cardigan", hair: "long" },
     { id: "boys", name: "Мальчики", dative: "Мальчикам", palette: "ink", garment: "hoodie", hair: "beanie" },
     { id: "baby", name: "Baby", dative: "Малышам", palette: "oat", garment: "onesie", hair: "baby" },
-    { id: "accessories", name: "Аксессуары", dative: "Аксессуары", palette: "stone", garment: "cap", hair: "none" },
   ],
   generations: [
     { id: "women", label: "Женщинам", palette: "blush", garment: "jacket", hair: "long" },
@@ -34,7 +33,6 @@ const LUMI = {
     { id: "knit-cardigan", name: "Кардиган вязаный", category: "girls", price: 4990, garment: "cardigan", cloth: "#f7f1e8", cloth2: "#e6d9c8", home: true, fresh: true, material: "Хлопок, акрил", description: "Тёплый кардиган на пуговицах с мягкой резинкой. Достаточно спокойный, чтобы носить его в школу и на прогулку." },
     { id: "print-hoodie", name: "Худи с принтом", category: "boys", price: 3990, garment: "hoodie", cloth: "#1c1c1e", cloth2: "#eceae6", home: true, fresh: true, material: "Хлопок футер", description: "Плотное худи с капюшоном и небольшим принтом на груди. Крой прямой, без лишнего объёма в рукаве." },
     { id: "warm-onesie", name: "Комбинезон утепленный", category: "baby", price: 7990, garment: "onesie", cloth: "#f3eadf", cloth2: "#e4d5c4", home: true, fresh: true, material: "Хлопок, утеплитель", description: "Мягкий комбинезон, который легко надевать: кнопки от горла до пятки и спокойный песочный цвет." },
-    { id: "shopper-bag", name: "Сумка шоппер", category: "accessories", price: 6990, garment: "tote", cloth: "#1a1a1c", cloth2: "#4a4a4e", home: true, fresh: true, material: "Плотная кожа", description: "Вместительный шоппер с короткими ручками. Держит форму и остаётся тёмным акцентом к светлому пальто." },
     { id: "straight-coat", name: "Пальто прямого кроя", category: "women", price: 18990, compareAt: 24990, garment: "coat", cloth: "#2c2a28", cloth2: "#5c5854", fresh: true, material: "Шерсть", description: "Прямое пальто до колена без пояса и лишних деталей. Хорошо сидит на свитер и на платье." },
     { id: "wide-trousers", name: "Брюки широкие", category: "women", price: 7990, garment: "trousers", cloth: "#c5c8cc", cloth2: "#8e939a", material: "Хлопок, эластан", description: "Спокойные широкие брюки с высокой посадкой. Защип спрятан, край можно подвернуть." },
     { id: "basic-sweatshirt", name: "Свитшот базовый", category: "men", price: 5490, garment: "sweatshirt", cloth: "#e7e2db", cloth2: "#cfc8be", fresh: true, material: "Хлопок", description: "Плотный свитшот без принта. Рукав чуть укорочен, чтобы было видно запястье." },
@@ -42,8 +40,6 @@ const LUMI = {
     { id: "knit-dress", name: "Платье вязаное", category: "girls", price: 4590, compareAt: 5990, garment: "dress", cloth: "#f6f0e8", cloth2: "#e7d9c8", material: "Хлопок", description: "Прямое вязаное платье с длинным рукавом. Не колется и не обтягивает." },
     { id: "warm-jacket", name: "Куртка утепленная", category: "boys", price: 9990, garment: "jacket", cloth: "#243038", cloth2: "#4c5964", material: "Нейлон, утеплитель", description: "Короткая куртка с капюшоном и тихой фурнитурой. Достаточно тёплая для осени без пуховика." },
     { id: "cotton-pajamas", name: "Пижама хлопковая", category: "baby", price: 3490, garment: "pajamas", cloth: "#f7f1e8", cloth2: "#e7dccf", material: "Хлопок", description: "Мягкий комплект из лонгслива и брюк. Швы наружу, чтобы ничего не натирало." },
-    { id: "embroidered-cap", name: "Кепка с вышивкой", category: "accessories", price: 2490, garment: "cap", cloth: "#1c1c1e", cloth2: "#f4f1ec", fresh: true, material: "Хлопок", description: "Тёмная кепка с маленькой вышивкой LUMI на панели. Козырёк средний, без жёсткого изгиба." },
-    { id: "cashmere-scarf", name: "Шарф кашемировый", category: "accessories", price: 4990, compareAt: 6490, garment: "scarf", cloth: "#e6ddd2", cloth2: "#cfc3b4", material: "Кашемир", description: "Тонкий шарф, который складывается в пальто и не занимает места. Цвет — тёплый камень." },
     { id: "oversized-shirt", name: "Рубашка оверсайз", category: "women", price: 6490, compareAt: 7990, garment: "shirt", cloth: "#f7f4ef", cloth2: "#e4ddd4", material: "Хлопок", description: "Свободная рубашка из плотного хлопка. Хорошо смотрится навыпуск и заправленной наполовину." },
   ],
   hero: [
@@ -62,13 +58,11 @@ LUMI.category = (id) => LUMI.categories.find((item) => item.id === id);
 LUMI.product = (id) => LUMI.products.find((item) => item.id === id);
 LUMI.money = (value) => `${new Intl.NumberFormat("ru-RU").format(value)} ₽`;
 LUMI.sizes = (category) => {
-  if (category === "accessories") return ["Единый"];
   if (category === "baby") return ["62", "68", "74", "80", "86"];
   if (category === "girls" || category === "boys") return ["104", "110", "116", "122", "128"];
   return ["XS", "S", "M", "L", "XL"];
 };
 LUMI.defaultSize = (category) => {
-  if (category === "accessories") return "Единый";
   if (category === "baby") return "74";
   if (category === "girls" || category === "boys") return "116";
   return "M";

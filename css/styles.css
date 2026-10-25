@@ -168,7 +168,7 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
 }
 @media (min-width: 1024px) {
   .looks, .looks.gens { grid-auto-flow: row; grid-auto-columns: auto; overflow: visible; padding: 0; }
-  .looks { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .looks { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .looks.gens { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .quick-add { opacity: 0; transform: translateY(6px); transition: 0.3s ease; }
   .product:hover .quick-add, .quick-add:focus-visible { opacity: 1; transform: none; }
