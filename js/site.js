@@ -29,11 +29,18 @@ const LumiUI = (() => {
     return `${header()}${`<main id="main"></main>`}${footer()}${drawers()}<div id="toasts" class="toasts"></div>`;
   }
 
-  function header() {
-    const links = [
-      ...LUMI.categories.map((item) => ({ href: `catalog.html?category=${item.id}`, label: item.name })),
-      { href: "catalog.html?sale=1", label: "Salé" },
+  function navLinks() {
+    return [
+      ...LUMI.categories
+        .filter((item) => item.id !== "baby")
+        .map((item) => ({ href: `catalog.html?category=${item.id}`, label: item.name })),
+      { href: "catalog.html?sale=1", label: "Распродажа" },
+      { href: "stores.html", label: "Адреса" },
     ];
+  }
+
+  function header() {
+    const links = navLinks();
     return `<header class="header" id="header">
       <div class="frame bar">
         <button class="icon-btn only-mobile" type="button" data-open="menu" aria-label="Открыть меню">${icon("menu")}</button>
@@ -277,17 +284,15 @@ const LumiUI = (() => {
 
   function paintSearch() {
     const box = document.getElementById("search-results");
-    if (!searchOpen) {
+    const query = search.trim().toLowerCase();
+    if (!searchOpen || !query) {
       box.hidden = true;
+      box.innerHTML = "";
       return;
     }
-    const query = search.trim().toLowerCase();
-    const list = (query
-      ? LUMI.products.filter((item) => item.name.toLowerCase().includes(query))
-      : LUMI.products.filter((item) => item.fresh)
-    ).slice(0, 6);
+    const list = LUMI.products.filter((item) => item.name.toLowerCase().includes(query)).slice(0, 6);
     box.hidden = false;
-    box.innerHTML = `<p class="search-label">${query ? "Нашли" : "Новое"}</p>${
+    box.innerHTML = `<p class="search-label">Нашли</p>${
       list.length
         ? list.map((item) => `<button type="button" data-go="product.html?id=${item.id}">${esc(item.name)} <span>→</span></button>`).join("")
         : `<p class="muted">Ничего не нашли. Попробуйте другое слово.</p>`
@@ -295,17 +300,17 @@ const LumiUI = (() => {
   }
 
   function paintMenu() {
-    const links = [
-      ...LUMI.categories.map((item) => [`catalog.html?category=${item.id}`, item.name]),
-      ["catalog.html?sale=1", "Salé"],
-    ];
+    const links = navLinks().map((link) => [link.href, link.label]);
     openSheet("left", `<h2 class="logo">LUMI</h2><nav class="menu-nav">${links.map(([href, label], index) => `<a href="${href}" style="animation-delay:${index * 40}ms">${esc(label)}</a>`).join("")}</nav>`);
   }
 
   function paintMobileSearch() {
     const query = search.trim().toLowerCase();
-    const list = (query ? LUMI.products.filter((item) => item.name.toLowerCase().includes(query)) : LUMI.products.filter((item) => item.fresh)).slice(0, 6);
-    openSheet("top", `<h2>Поиск по каталогу</h2><input id="mobile-search" class="field" value="${esc(search)}" placeholder="Свитер, сумка, пальто">${list.map((item) => `<button class="menu-link" type="button" data-go="product.html?id=${item.id}">${esc(item.name)}</button>`).join("") || `<p class="muted">Ничего не нашли.</p>`}`);
+    const list = query ? LUMI.products.filter((item) => item.name.toLowerCase().includes(query)).slice(0, 6) : [];
+    const results = query
+      ? list.map((item) => `<button class="menu-link" type="button" data-go="product.html?id=${item.id}">${esc(item.name)}</button>`).join("") || `<p class="muted">Ничего не нашли.</p>`
+      : "";
+    openSheet("top", `<h2>Поиск по каталогу</h2><input id="mobile-search" class="field" value="${esc(search)}" placeholder="Свитер, сумка, пальто">${results}`);
     const input = document.getElementById("mobile-search");
     if (input) {
       input.focus();

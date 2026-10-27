@@ -52,6 +52,13 @@ const LUMI = {
     { id: "knit", eyebrow: "Новинки недели", title: ["Трикотаж,", "который хочется"], text: "Мягкие фактуры и свободный крой — уже можно примерить в каталоге.", cta: "К новинкам", href: "catalog.html?sort=new", palette: "taupe", garment: "cardigan", hair: "none", dark: true },
     { id: "delivery", eyebrow: "Доставка", title: ["Бесплатно", "от 8 000 ₽"], text: "Соберём заказ аккуратно и отправим по России в ближайший день.", cta: "Условия доставки", href: "delivery.html", palette: "fog", garment: "tote", hair: "none", dark: true },
   ],
+  stores: [
+    { id: "minsk", city: "Минск", address: "ул. Немига, 5", hours: "ежедневно 10:00–21:00", lat: 53.9054, lng: 27.5543 },
+    { id: "brest", city: "Брест", address: "ул. Советская, 52", hours: "ежедневно 10:00–21:00", lat: 52.0938, lng: 23.6854 },
+    { id: "grodno", city: "Гродно", address: "ул. Советская, 31", hours: "ежедневно 10:00–21:00", lat: 53.678, lng: 23.8294 },
+    { id: "gomel", city: "Гомель", address: "пр-т Ленина, 10", hours: "ежедневно 10:00–21:00", lat: 52.424, lng: 30.987 },
+    { id: "vitebsk", city: "Витебск", address: "ул. Ленина, 26", hours: "ежедневно 10:00–21:00", lat: 55.191, lng: 30.204 },
+  ],
 };
 
 LUMI.category = (id) => LUMI.categories.find((item) => item.id === id);

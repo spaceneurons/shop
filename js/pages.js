@@ -25,7 +25,7 @@ const LumiPages = (() => {
     const initial = params.get("sort");
     let sort = initial === "price-asc" || initial === "price-desc" ? initial : "new";
     const categoryName = LUMI.category(category)?.name;
-    const title = sale ? "Salé" : categoryName || "Каталог";
+    const title = sale ? "Распродажа" : categoryName || "Каталог";
     document.title = `${title} — LUMI`;
 
     LumiUI.boot((main) => {
@@ -47,7 +47,7 @@ const LumiPages = (() => {
         const chips = [
           ["catalog.html", "Все", !category && !sale],
           ...LUMI.categories.map((item) => [`catalog.html?category=${item.id}${saleQuery}`, item.name, category === item.id]),
-          ["catalog.html?sale=1", "Salé", sale && !category],
+          ["catalog.html?sale=1", "Распродажа", sale && !category],
         ];
         main.innerHTML = `<div class="page fade-up">
           <p class="kicker">LUMI</p>
@@ -177,7 +177,7 @@ const LumiPages = (() => {
         ["Срок", "14 дней с момента получения. Сохраните бирки и товарный вид — без следов носки, стирки и парфюма."],
         ["Обмен размера", "Напишите нам размер, который нужен. Если он есть, отправим замену и заберём предыдущий тем же курьером."],
         ["Возврат денег", "После проверки на складе возвращаем оплату тем же способом. Обычно это занимает до 5 рабочих дней."],
-        ["Что не возвращаем", "Нижнее бельё и персональные заказы. Уценённые вещи из Salé возвращаются, если брак — и не возвращаются, если просто не подошёл цвет."],
+        ["Что не возвращаем", "Нижнее бельё и персональные заказы. Уценённые вещи из раздела «Распродажа» возвращаются, если брак — и не возвращаются, если просто не подошёл цвет."],
       ],
     },
     contacts: {
@@ -218,6 +218,44 @@ const LumiPages = (() => {
     });
   }
 
+  function stores() {
+    document.title = "Адреса — LUMI";
+    LumiUI.boot((main) => {
+      const shops = LUMI.stores;
+      main.innerHTML = `<div class="page fade-up">
+        <p class="kicker">Магазины</p>
+        <h1 class="page-title">Адреса</h1>
+        <p class="intro">Пять магазинов LUMI в Беларуси. Точки на карте — там, где можно примерить вещи.</p>
+        <div id="store-map" class="store-map" role="region" aria-label="Карта магазинов в Беларуси"></div>
+        <div class="store-list">${shops.map((shop, index) => `<button class="store-card" type="button" data-store="${index}"><h2>${LumiUI.esc(shop.city)}</h2><p>${LumiUI.esc(shop.address)}</p><p>${LumiUI.esc(shop.hours)}</p></button>`).join("")}</div>
+      </div>`;
+      const mapHost = document.getElementById("store-map");
+      if (typeof L === "undefined") {
+        mapHost.innerHTML = `<p class="muted">Карта не загрузилась. Адреса магазинов — в списке ниже.</p>`;
+        return;
+      }
+      const map = L.map(mapHost, { scrollWheelZoom: false }).fitBounds([[51.25, 23.15], [56.2, 32.8]], { padding: [24, 24] });
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "&copy; OpenStreetMap",
+        maxZoom: 18,
+      }).addTo(map);
+      const markers = shops.map((shop) => L.circleMarker([shop.lat, shop.lng], {
+        radius: 8,
+        color: "#1a1a1e",
+        weight: 2,
+        fillColor: "#1a1a1e",
+        fillOpacity: 1,
+      }).addTo(map).bindPopup(`<strong>${LumiUI.esc(shop.city)}</strong><br>${LumiUI.esc(shop.address)}<br>${LumiUI.esc(shop.hours)}`));
+      main.querySelectorAll("[data-store]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const marker = markers[Number(button.dataset.store)];
+          map.setView(marker.getLatLng(), 13);
+          marker.openPopup();
+        });
+      });
+    });
+  }
+
   function missing() {
     document.title = "Страница не найдена — LUMI";
     LumiUI.boot((main) => {
@@ -229,5 +267,5 @@ const LumiPages = (() => {
     });
   }
 
-  return { home, catalog, product, info, missing };
+  return { home, catalog, product, info, stores, missing };
 })();

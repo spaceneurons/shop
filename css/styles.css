@@ -88,7 +88,7 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
   }
   .search {
     display: block;
-    width: min(660px, calc(50% - 390px));
+    width: min(660px, calc(50% - 410px));
     height: 100%;
     margin: 0 0 0 auto;
   }
@@ -208,6 +208,19 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
   .footer-row, .footer-links { flex-direction: row; align-items: center; }
   .footer-row { justify-content: space-between; }
   .footer-links { gap: 32px; }
+}
+
+.store-map { height: 420px; margin-top: 24px; background: #e7e4df; }
+.store-map .muted { padding: 24px; }
+.store-list { display: grid; gap: 8px; margin-top: 16px; }
+.store-card { background: #fff; border: 0; border-radius: 16px; padding: 16px; text-align: left; }
+.store-card h2 { margin: 0; font-size: 16px; font-weight: 400; }
+.store-card p { margin: 6px 0 0; color: var(--soft); font-size: 14px; }
+.leaflet-container { font-family: inherit; z-index: 1; }
+.leaflet-container img { max-width: none; }
+@media (min-width: 800px) {
+  .store-map { height: 560px; }
+  .store-list { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
 }
 
 .page { width: 100%; margin: 0; padding: 32px var(--gutter) 16px; }
