@@ -435,15 +435,16 @@ const LumiUI = (() => {
     </article>`;
   }
 
-  function lookCard(item) {
+  function lookCard(item, extraClass) {
     const href = `catalog.html?category=${item.id}`;
     const label = item.label || item.name;
-    return `<a class="look" href="${href}">${lumiArt(item)}<span>${esc(label)} ${icon("arrow")}</span></a>`;
+    return `<a class="look${extraClass ? ` ${extraClass}` : ""}" href="${href}">${lumiArt(item)}<span>${esc(label)} ${icon("arrow")}</span></a>`;
   }
 
   function section(title, href, inner, extra) {
+    const more = href ? `<a class="see-all" href="${href}">Смотреть все ${icon("arrow")}</a>` : "";
     return `<section class="frame block ${extra || ""}">
-      <div class="block-head fade-up"><h2>${esc(title)}</h2><a class="see-all" href="${href}">Смотреть все ${icon("arrow")}</a></div>
+      <div class="block-head fade-up"><h2>${esc(title)}</h2>${more}</div>
       ${inner}
     </section>`;
   }
