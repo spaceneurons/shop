@@ -9,14 +9,14 @@ const LumiPages = (() => {
       const arrivals = LUMI.products.filter((item) => item.fresh).map((item) => LumiUI.productCard(item)).join("");
       const generations = LUMI.generations.map((item) => LumiUI.lookCard(item)).join("");
       main.innerHTML = `
-        <div class="hero-wrap">${LumiUI.banner(LUMI.hero)}</div>
+        <div class="hero-wrap">${LumiUI.banner([LUMI.hero[0]])}</div>
         ${LumiUI.section("Выбрать категорию", "", `<div class="products home">${fresh}</div>`, "inset")}
         ${LumiUI.section("Новые поступления", "catalog.html?sort=new", LumiUI.rail(arrivals), "inset")}
         <div class="promo-wrap">${LumiUI.banner(LUMI.promo, true)}</div>
         ${LumiUI.section("Для каждого поколения", "catalog.html", `<div class="looks gens">${generations}</div>`, "loose")}
       `;
       const banners = main.querySelectorAll("[data-banner]");
-      LumiUI.mountBanner(banners[0], LUMI.hero);
+      LumiUI.mountBanner(banners[0], [LUMI.hero[0]]);
       LumiUI.mountBanner(banners[1], LUMI.promo);
     });
   }

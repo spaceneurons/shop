@@ -510,6 +510,12 @@ const LumiUI = (() => {
       index = (next + slides.length) % slides.length;
       draw();
     }
+    if (slides.length < 2) {
+      pager.hidden = true;
+      root.querySelector(".arrows").hidden = true;
+      draw();
+      return;
+    }
     root.addEventListener("click", (event) => {
       if (event.target.closest("[data-prev]")) go(index - 1);
       if (event.target.closest("[data-next]")) go(index + 1);
