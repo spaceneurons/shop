@@ -165,13 +165,13 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
 .rail-nav.is-prev { left: 12px; }
 .rail-nav.is-next { right: 12px; }
 .rail-nav:disabled { opacity: 0.35; }
-.rail .quick-add {
-  left: 0; right: 0; bottom: 0; height: 40px; border-radius: 0;
+.product.is-docked .quick-add {
+  position: static; width: 100%; margin-top: 10px; height: 40px; border-radius: 0;
   background: #1a1a1e; color: #fff; opacity: 1; transform: none;
 }
-.rail .quick-add:hover { transform: none; background: #000; }
+.product.is-docked .quick-add:hover { transform: none; background: #000; }
 @media (min-width: 800px) {
-  .rail-track .product { flex-basis: calc((100% - 12px) / 4); }
+  .rail-track .product { flex-basis: calc((100% - 16px) / 5); }
 }
 @media (prefers-reduced-motion: reduce) {
   .rail-track { scroll-behavior: auto; }

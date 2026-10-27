@@ -439,18 +439,18 @@ const LumiUI = (() => {
     document.getElementById("toasts").innerHTML = toasts.map((item) => `<button type="button" data-open="cart">${esc(item.title)}${item.detail ? `<span>${esc(item.detail)}</span>` : ""}</button>`).join("");
   }
 
-  function productCard(product) {
-    return `<article class="product">
+  function productCard(product, docked) {
+    const cart = `<button class="quick-add" type="button" data-add="${product.id}">В корзину</button>`;
+    const copy = `<h3>${esc(product.name)}</h3><p>${esc(LUMI.category(product.category).name)}</p><strong>${LUMI.money(product.price)}${product.compareAt ? `<s>${LUMI.money(product.compareAt)}</s>` : ""}</strong>`;
+    return `<article class="product${docked ? " is-docked" : ""}">
       <div class="product-media">
-        <a href="product.html?id=${product.id}" aria-label="${esc(product.name)}">${lumiArt({ image: product.image, mode: "packshot" })}<span class="shine"></span></a>
+        <a href="product.html?id=${product.id}" aria-label="${esc(product.name)}">${lumiArt({ image: product.image, mode: "packshot" })}${docked ? "" : `<span class="shine"></span>`}</a>
         <button class="heart ${LumiStore.wished(product.id) ? "is-on" : ""}" type="button" data-wish="${product.id}" aria-label="В избранное" aria-pressed="${LumiStore.wished(product.id)}">${icon("heart")}</button>
-        <button class="quick-add" type="button" data-add="${product.id}">В корзину</button>
+        ${docked ? "" : cart}
       </div>
-      <a class="product-copy" href="product.html?id=${product.id}">
-        <h3>${esc(product.name)}</h3>
-        <p>${esc(LUMI.category(product.category).name)}</p>
-        <strong>${LUMI.money(product.price)}${product.compareAt ? `<s>${LUMI.money(product.compareAt)}</s>` : ""}</strong>
-      </a>
+      ${docked
+        ? `<div class="product-copy"><a href="product.html?id=${product.id}">${copy}</a>${cart}</div>`
+        : `<a class="product-copy" href="product.html?id=${product.id}">${copy}</a>`}
     </article>`;
   }
 
