@@ -133,6 +133,7 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   height: 32px; padding: 0 16px; border-radius: 999px; border: 0; background: var(--ink); color: #fff; font-size: 14px; font-weight: 400;
 }
+.quick-add { border-radius: 0; }
 .btn-light { background: #fff; color: var(--ink); }
 .btn-dark { background: var(--ink); color: #fff; }
 .btn-ghost { background: #fff; color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); }
@@ -165,11 +166,6 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
 .rail-nav.is-prev { left: 12px; }
 .rail-nav.is-next { right: 12px; }
 .rail-nav:disabled { opacity: 0.35; }
-.product.is-docked .quick-add {
-  position: static; width: 100%; margin-top: 10px; height: 40px; border-radius: 0;
-  background: #1a1a1e; color: #fff; opacity: 1; transform: none;
-}
-.product.is-docked .quick-add:hover { transform: none; background: #000; }
 @media (min-width: 800px) {
   .rail-track .product { flex-basis: calc((100% - 16px) / 5); }
 }
@@ -217,8 +213,7 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
   .looks, .looks.gens { grid-auto-flow: row; grid-auto-columns: auto; overflow: visible; padding-bottom: 0; }
   .looks { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .looks.gens { grid-template-columns: repeat(5, minmax(0, 1fr)); }
-  .quick-add { opacity: 0; transform: translateY(6px); transition: 0.3s ease; }
-  .product:hover .quick-add, .quick-add:focus-visible { opacity: 1; transform: none; }
+  .quick-add { opacity: 1; transform: none; }
 }
 
 .hero-wrap, .promo-wrap { width: 100%; margin: 0; padding: 0 var(--gutter); }
