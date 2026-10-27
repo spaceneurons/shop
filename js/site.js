@@ -104,6 +104,16 @@ const LumiUI = (() => {
         paintSearch();
       }, 160);
     });
+    document.querySelectorAll(".rail-track").forEach((track) => {
+      const sync = () => {
+        const rail = track.closest(".rail");
+        const max = track.scrollWidth - track.clientWidth;
+        rail.querySelector(".is-prev").disabled = track.scrollLeft <= 4;
+        rail.querySelector(".is-next").disabled = track.scrollLeft >= max - 4;
+      };
+      track.addEventListener("scroll", sync, { passive: true });
+      sync();
+    });
     LumiStore.subscribe(() => {
       paintChrome();
       if (open === "cart") paintCart();
@@ -112,6 +122,15 @@ const LumiUI = (() => {
   }
 
   function onClick(event) {
+    const railBtn = event.target.closest("[data-rail]");
+    if (railBtn) {
+      const track = railBtn.closest(".rail").querySelector(".rail-track");
+      const card = track.querySelector(".product");
+      const gap = 4;
+      const step = (card?.getBoundingClientRect().width || track.clientWidth) + gap;
+      track.scrollBy({ left: Number(railBtn.dataset.rail) * step, behavior: "smooth" });
+      return;
+    }
     const opener = event.target.closest("[data-open]");
     if (opener) {
       show(opener.dataset.open);
@@ -435,6 +454,14 @@ const LumiUI = (() => {
     </article>`;
   }
 
+  function rail(cards) {
+    return `<div class="rail">
+      <div class="rail-track">${cards}</div>
+      <button class="rail-nav is-prev" type="button" data-rail="-1" aria-label="Предыдущие">${icon("left")}</button>
+      <button class="rail-nav is-next" type="button" data-rail="1" aria-label="Следующие">${icon("arrow")}</button>
+    </div>`;
+  }
+
   function lookCard(item, extraClass) {
     const href = `catalog.html?category=${item.id}`;
     const label = item.label || item.name;
@@ -519,5 +546,5 @@ const LumiUI = (() => {
     return `<svg viewBox="0 0 24 24" aria-hidden="true">${paths[name] || ""}</svg>`;
   }
 
-  return { boot, open: show, esc, productCard, lookCard, section, banner, mountBanner, toast };
+  return { boot, open: show, esc, productCard, lookCard, rail, section, banner, mountBanner, toast };
 })();
