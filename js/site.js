@@ -456,6 +456,7 @@ const LumiUI = (() => {
 
   function productCard(product, options = {}) {
     const gloss = options.gloss === false ? "" : `<span class="shine"></span>`;
+    const category = options.plain ? "" : `<p>${esc(LUMI.category(product.category).name)}</p>`;
     return `<article class="product">
       <div class="product-media">
         <a href="product.html?id=${product.id}" aria-label="${esc(product.name)}">${lumiArt({ image: product.image, mode: "packshot" })}${gloss}</a>
@@ -464,7 +465,7 @@ const LumiUI = (() => {
       </div>
       <a class="product-copy" href="product.html?id=${product.id}">
         <h3>${esc(product.name)}</h3>
-        <p>${esc(LUMI.category(product.category).name)}</p>
+        ${category}
         <strong>${LUMI.money(product.price)}${product.compareAt ? `<s>${LUMI.money(product.compareAt)}</s>` : ""}</strong>
       </a>
     </article>`;
@@ -486,8 +487,8 @@ const LumiUI = (() => {
     return `<a class="look${extraClass ? ` ${extraClass}` : ""}" href="${href}">${lumiArt(item)}<span>${esc(label)} ${icon("arrow")}</span></a>`;
   }
 
-  function section(title, href, inner, extra) {
-    const more = href ? `<a class="see-all" href="${href}">Смотреть все ${icon("arrow")}</a>` : "";
+  function section(title, href, inner, extra, moreLabel) {
+    const more = href ? `<a class="see-all" href="${href}">${esc(moreLabel || "Смотреть все")} ${icon("arrow")}</a>` : "";
     return `<section class="frame block ${extra || ""}">
       <div class="block-head fade-up"><h2>${esc(title)}</h2>${more}</div>
       ${inner}

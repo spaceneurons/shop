@@ -222,10 +222,10 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
   .looks.gens { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .quick-add { opacity: 1; transform: none; }
 }
-.rail .product-media .art { transition: transform 0.8s ease; }
-.rail .product:hover .art { transform: scale(1.06); }
-.rail .shine { display: none; }
-.rail .quick-add {
+.rail .product-media .art, .products.suggest .product-media .art { transition: transform 0.8s ease; }
+.rail .product:hover .art, .products.suggest .product:hover .art { transform: scale(1.06); }
+.rail .shine, .products.suggest .shine { display: none; }
+.rail .quick-add, .products.suggest .quick-add {
   left: 14px;
   right: auto;
   bottom: 14px;
@@ -236,15 +236,21 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
   transition: opacity 0.28s ease, transform 0.28s ease;
 }
 .rail .product:hover .quick-add,
-.rail .product:focus-within .quick-add {
+.rail .product:focus-within .quick-add,
+.products.suggest .product:hover .quick-add,
+.products.suggest .product:focus-within .quick-add {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
 }
 @media (max-width: 799px) {
-  .rail .quick-add { opacity: 1; pointer-events: auto; transform: none; }
+  .rail .quick-add, .products.suggest .quick-add { opacity: 1; pointer-events: auto; transform: none; }
 }
-.rail .product:hover .quick-add:hover { transform: translateY(-1px); }
+.rail .product:hover .quick-add:hover,
+.products.suggest .product:hover .quick-add:hover { transform: translateY(-1px); }
+.block.suggest { margin-top: 36px; }
+.products.suggest { gap: 12px; }
+.products.suggest .product-media { border-radius: 16px; }
 
 .signup { display: grid; gap: 12px; margin-top: 36px; padding: 0 var(--gutter); }
 .signup-photo { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: #e7e4df; }
