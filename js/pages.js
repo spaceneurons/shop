@@ -12,7 +12,7 @@ const LumiPages = (() => {
         <div class="hero-wrap">${LumiUI.banner([LUMI.hero[0]])}</div>
         ${LumiUI.section("Выбрать категорию", "", `<div class="products home">${fresh}</div>`, "inset")}
         ${LumiUI.section("Новые поступления", "catalog.html?sort=new", LumiUI.rail(arrivals), "inset")}
-        <div class="promo-wrap">${LumiUI.banner(LUMI.promo, true)}</div>
+        <div class="promo-wrap">${LumiUI.banner(LUMI.promo)}</div>
         ${LumiUI.section("Для каждого поколения", "catalog.html", `<div class="looks gens">${generations}</div>`, "loose")}
       `;
       const banners = main.querySelectorAll("[data-banner]");

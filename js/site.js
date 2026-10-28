@@ -477,8 +477,8 @@ const LumiUI = (() => {
     </section>`;
   }
 
-  function banner(slides, compact) {
-    return `<section class="banner ${compact ? "is-compact" : ""}" data-banner>
+  function banner(slides) {
+    return `<section class="banner" data-banner>
       <div class="banner-stage"></div>
       <div class="banner-copy"></div>
       <div class="pager"></div>
@@ -495,7 +495,6 @@ const LumiUI = (() => {
     const stage = root.querySelector(".banner-stage");
     const copy = root.querySelector(".banner-copy");
     const pager = root.querySelector(".pager");
-    const compact = root.classList.contains("is-compact");
     function draw() {
       const slide = slides[index];
       stage.innerHTML = `<div class="fade-up banner-art">${lumiArt({ ...slide, mode: "banner" })}<div class="banner-veil"></div></div>`;
@@ -503,7 +502,7 @@ const LumiUI = (() => {
         <p class="eyebrow">${esc(slide.eyebrow)}</p>
         <h2>${slide.title.map((line) => `<span>${esc(line)}</span>`).join("")}</h2>
         <p class="lead">${esc(slide.text)}</p>
-        <a class="${compact ? "btn btn-dark" : "btn btn-light"}" href="${slide.href}">${esc(slide.cta)} ${icon("arrow")}</a>
+        <a class="btn btn-light" href="${slide.href}">${esc(slide.cta)} ${icon("arrow")}</a>
       </div>`;
       pager.innerHTML = slides.map((item, itemIndex) => `<button type="button" class="${itemIndex === index ? "is-on" : ""}" data-go-slide="${itemIndex}">${String(itemIndex + 1).padStart(2, "0")}${itemIndex === index && itemIndex < slides.length - 1 ? "<i></i>" : ""}</button>`).join("");
     }

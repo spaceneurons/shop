@@ -104,10 +104,8 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
 }
 
 .banner { position: relative; height: 520px; overflow: hidden; border-radius: 0; color: #fff; }
-.banner.is-compact { height: 320px; }
 @media (min-width: 800px) {
   .banner { height: 560px; }
-  .banner.is-compact { height: 380px; }
 }
 .banner-art, .banner-art .art, .art { position: absolute; inset: 0; }
 .art { overflow: hidden; }
@@ -118,21 +116,16 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
 .banner-veil { background: linear-gradient(90deg, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.15) 48%, transparent); }
 .grain { position: absolute; inset: 0; pointer-events: none; opacity: 0.18; mix-blend-mode: overlay; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='.55'/></svg>"); }
 .banner-copy { position: relative; z-index: 2; max-width: 420px; padding: 28px; }
-.banner.is-compact .banner-copy { max-width: 460px; padding: 24px; }
 @media (min-width: 800px) {
   .banner-copy { padding: 40px; }
-  .banner.is-compact .banner-copy { padding: 32px; }
 }
 .eyebrow { margin: 0; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255, 255, 255, 0.85); }
 .banner h2 { margin: 12px 0 0; font-size: 36px; line-height: 1.07; font-weight: 400; letter-spacing: 0; }
-.banner.is-compact h2 { font-size: 24px; line-height: 1.15; }
 @media (min-width: 800px) {
   .banner h2 { font-size: 60px; }
-  .banner.is-compact h2 { font-size: 28px; }
 }
 .banner h2 span { display: block; }
 .lead { max-width: 420px; margin: 12px 0 0; font-size: 16px; font-weight: 400; color: rgba(255, 255, 255, 0.88); }
-.banner.is-compact .lead { max-width: 460px; font-size: 16px; }
 .btn, .quick-add {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   height: 32px; padding: 0 16px; border-radius: 999px; border: 0; background: var(--ink); color: #fff; font-size: 14px; font-weight: 400;
