@@ -458,8 +458,10 @@ const LumiUI = (() => {
   function rail(cards) {
     return `<div class="rail">
       <div class="rail-track">${cards}</div>
-      <button class="rail-nav is-prev" type="button" data-rail="-1" aria-label="Предыдущие">${icon("left")}</button>
-      <button class="rail-nav is-next" type="button" data-rail="1" aria-label="Следующие">${icon("arrow")}</button>
+      <div class="rail-arrows">
+        <button class="rail-nav is-prev" type="button" data-rail="-1" aria-label="Предыдущие">${icon("left")}</button>
+        <button class="rail-nav is-next" type="button" data-rail="1" aria-label="Следующие">${icon("arrow")}</button>
+      </div>
     </div>`;
   }
 
