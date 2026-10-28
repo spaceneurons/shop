@@ -16,30 +16,27 @@ const LumiPages = (() => {
           <div class="signup-photo">
             <img src="images/${encodeURIComponent("image 33.png")}" alt="Свитшот и широкие джинсы">
             <div class="signup-copy">
-              <h2>Тихий подарок</h2>
-              <p class="price">От 3 990 ₽</p>
-              <p class="note">Свитеры, деним и пальто — чтобы дарить без лишнего шума.</p>
+              <h2>Утренний слой</h2>
+              <p class="price">Свитшот и деним</p>
+              <p class="note">Мягкий ворот, широкие брюки и ни одной лишней детали.</p>
             </div>
           </div>
           <div class="signup-panel">
-            <h2>Подписаться на эмейл-рассылки</h2>
-            <form id="newsletter-form">
-              <label>Имя
-                <input name="name" type="text" autocomplete="name" placeholder="Как к вам обращаться">
-              </label>
-              <label>Эл. почта
-                <input name="email" type="email" autocomplete="email" placeholder="name@mail.com">
-              </label>
-              <label>О чём писать
-                <select name="topic">
-                  <option value="all">Новинки и скидки</option>
-                  <option value="new">Только новинки</option>
-                  <option value="sale">Только скидки</option>
-                </select>
-              </label>
-              <p class="form-error" hidden></p>
-              <button type="submit">Подписаться</button>
-            </form>
+            <div class="signup-inner">
+              <p class="kicker">Рассылка</p>
+              <h2>Редкие письма</h2>
+              <p class="signup-lead">Коротко и нечасто: новинки и спокойные скидки.</p>
+              <form id="newsletter-form">
+                <label>Имя
+                  <input name="name" type="text" autocomplete="name">
+                </label>
+                <label>Почта
+                  <input name="email" type="email" autocomplete="email">
+                </label>
+                <p class="form-error" hidden></p>
+                <button type="submit">Подписаться</button>
+              </form>
+            </div>
           </div>
         </section>
       `;
