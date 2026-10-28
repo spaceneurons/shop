@@ -163,8 +163,8 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
   display: inline-flex; align-items: center; justify-content: center;
 }
 .rail-nav svg { width: 16px; height: 16px; }
-.rail-nav.is-prev { left: 12px; }
-.rail-nav.is-next { right: 12px; }
+.rail-nav.is-prev { left: max(4px, calc(var(--gutter) - 18px)); }
+.rail-nav.is-next { right: max(4px, calc(var(--gutter) - 18px)); }
 .rail-nav:disabled { opacity: 0.35; }
 @media (min-width: 800px) {
   .rail-track .product { flex-basis: calc((100% - 16px) / 5); }
