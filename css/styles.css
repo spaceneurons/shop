@@ -87,12 +87,16 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
     transform: translateX(-50%);
   }
   .search {
-    display: block;
+    display: flex;
+    align-items: center;
     width: min(660px, calc(50% - 410px));
     height: 100%;
     margin: 0 0 0 auto;
+    padding: 10px 8px;
+    box-sizing: border-box;
   }
-  .search input { height: 100%; border-radius: 0; padding-left: 44px; }
+  .search input { height: 100%; border-radius: 0; padding-left: 36px; }
+  .search-icon { left: 22px; }
   .search-results { width: 100%; }
   .only-mobile { display: none; }
   .header .logo { align-self: center; line-height: 1; }
