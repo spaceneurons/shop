@@ -235,6 +235,23 @@ const LumiUI = (() => {
       hide();
       toast("Профиль сохранён", name);
     }
+    if (form.id === "newsletter-form") {
+      event.preventDefault();
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const topic = form.topic.value;
+      const error = form.querySelector(".form-error");
+      if (name.length < 2 || !email.includes("@") || !email.includes(".")) {
+        error.hidden = false;
+        error.textContent = "Напишите имя и настоящую почту — иначе письмо не дойдёт.";
+        return;
+      }
+      error.hidden = true;
+      const topics = { all: "новинки и скидки", new: "новинки", sale: "скидки" };
+      try { localStorage.setItem("lumi-newsletter", JSON.stringify({ name, email, topic })); } catch (err) { /* браузер мог запретить запись */ }
+      form.innerHTML = `<p class="signup-done">Вы в списке, ${esc(name)}. Письма будут редкими — только про ${topics[topic] || "новинки"}.</p>`;
+      toast("Подписка оформлена", email);
+    }
     if (form.id === "contact-form") {
       event.preventDefault();
       const name = form.name.value.trim();

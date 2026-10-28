@@ -7,13 +7,41 @@ const LumiPages = (() => {
         return LumiUI.lookCard({ id: category.id, name: category.name, image: item.image }, "zoom");
       }).join("");
       const arrivals = LUMI.products.filter((item) => item.fresh).map((item) => LumiUI.productCard(item, { gloss: false })).join("");
-      const generations = LUMI.generations.map((item) => LumiUI.lookCard(item)).join("");
       main.innerHTML = `
         <div class="hero-wrap">${LumiUI.banner([LUMI.hero[0]])}</div>
         ${LumiUI.section("Выбрать категорию", "", `<div class="products home">${fresh}</div>`, "inset")}
         ${LumiUI.section("Новые поступления", "catalog.html?sort=new", LumiUI.rail(arrivals), "inset")}
         <div class="promo-wrap">${LumiUI.banner(LUMI.promo)}</div>
-        ${LumiUI.section("Для каждого поколения", "catalog.html", `<div class="looks gens">${generations}</div>`, "loose")}
+        <section class="signup">
+          <div class="signup-photo">
+            <img src="images/${encodeURIComponent("image 33.png")}" alt="Свитшот и широкие джинсы">
+            <div class="signup-copy">
+              <h2>Тихий подарок</h2>
+              <p class="price">От 3 990 ₽</p>
+              <p class="note">Свитеры, деним и пальто — чтобы дарить без лишнего шума.</p>
+            </div>
+          </div>
+          <div class="signup-panel">
+            <h2>Подписаться на эмейл-рассылки</h2>
+            <form id="newsletter-form">
+              <label>Имя
+                <input name="name" type="text" autocomplete="name" placeholder="Как к вам обращаться">
+              </label>
+              <label>Эл. почта
+                <input name="email" type="email" autocomplete="email" placeholder="name@mail.com">
+              </label>
+              <label>О чём писать
+                <select name="topic">
+                  <option value="all">Новинки и скидки</option>
+                  <option value="new">Только новинки</option>
+                  <option value="sale">Только скидки</option>
+                </select>
+              </label>
+              <p class="form-error" hidden></p>
+              <button type="submit">Подписаться</button>
+            </form>
+          </div>
+        </section>
       `;
       const banners = main.querySelectorAll("[data-banner]");
       LumiUI.mountBanner(banners[0], [LUMI.hero[0]]);
