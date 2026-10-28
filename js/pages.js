@@ -6,7 +6,7 @@ const LumiPages = (() => {
         const category = LUMI.category(item.category);
         return LumiUI.lookCard({ id: category.id, name: category.name, image: item.image }, "zoom");
       }).join("");
-      const arrivals = LUMI.products.filter((item) => item.fresh).map((item) => LumiUI.productCard(item)).join("");
+      const arrivals = LUMI.products.filter((item) => item.fresh).map((item) => LumiUI.productCard(item, { gloss: false })).join("");
       const generations = LUMI.generations.map((item) => LumiUI.lookCard(item)).join("");
       main.innerHTML = `
         <div class="hero-wrap">${LumiUI.banner([LUMI.hero[0]])}</div>

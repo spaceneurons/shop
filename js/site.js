@@ -439,10 +439,11 @@ const LumiUI = (() => {
     document.getElementById("toasts").innerHTML = toasts.map((item) => `<button type="button" data-open="cart">${esc(item.title)}${item.detail ? `<span>${esc(item.detail)}</span>` : ""}</button>`).join("");
   }
 
-  function productCard(product) {
+  function productCard(product, options = {}) {
+    const gloss = options.gloss === false ? "" : `<span class="shine"></span>`;
     return `<article class="product">
       <div class="product-media">
-        <a href="product.html?id=${product.id}" aria-label="${esc(product.name)}">${lumiArt({ image: product.image, mode: "packshot" })}<span class="shine"></span></a>
+        <a href="product.html?id=${product.id}" aria-label="${esc(product.name)}">${lumiArt({ image: product.image, mode: "packshot" })}${gloss}</a>
         <button class="heart ${LumiStore.wished(product.id) ? "is-on" : ""}" type="button" data-wish="${product.id}" aria-label="В избранное" aria-pressed="${LumiStore.wished(product.id)}">${icon("heart")}</button>
         <button class="quick-add" type="button" data-add="${product.id}">В корзину</button>
       </div>

@@ -215,6 +215,27 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
   .looks.gens { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .quick-add { opacity: 1; transform: none; }
 }
+.rail .product-media .art { transition: transform 0.8s ease; }
+.rail .product:hover .art { transform: scale(1.06); }
+.rail .shine { display: none; }
+.rail .quick-add {
+  left: 50%;
+  right: auto;
+  bottom: 14px;
+  width: auto;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+.rail .product:hover .quick-add,
+.rail .product:focus-within .quick-add {
+  opacity: 1;
+  pointer-events: auto;
+}
+@media (max-width: 799px) {
+  .rail .quick-add { opacity: 1; pointer-events: auto; }
+}
+.rail .quick-add:hover { transform: translateX(-50%) translateY(-1px); }
 
 .hero-wrap, .promo-wrap { width: 100%; margin: 0; padding: 0 var(--gutter); }
 .promo-wrap { margin-top: 36px; }
