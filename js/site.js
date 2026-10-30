@@ -32,12 +32,10 @@ const LumiUI = (() => {
   }
 
   function navLinks() {
+    const labels = { women: "Женщины", men: "Мужчины", girls: "Девочки", boys: "Мальчики", baby: "Baby" };
     return [
-      ...LUMI.categories
-        .filter((item) => item.id !== "baby")
-        .map((item) => ({ href: `catalog.html?category=${item.id}`, label: item.name })),
-      { href: "catalog.html?sale=1", label: "Распродажа" },
-      { href: "stores.html", label: "Адреса" },
+      ...LUMI.categories.map((item) => ({ href: `catalog.html?category=${item.id}`, label: labels[item.id] || item.name })),
+      { href: "catalog.html?sale=1", label: "Salé" },
     ];
   }
 
@@ -45,7 +43,7 @@ const LumiUI = (() => {
     const links = navLinks();
     return `<header class="header" id="header">
       <div class="frame bar">
-        <button class="icon-btn menu-btn" type="button" data-open="menu" aria-label="Открыть меню" aria-expanded="false" aria-controls="menu">${icon("menu")}</button>
+        <button class="icon-btn menu-btn only-mobile" type="button" data-open="menu" aria-label="Открыть меню" aria-expanded="false" aria-controls="menu">${icon("menu")}</button>
         <a class="logo" href="index.html">LUMI</a>
         <nav class="nav" aria-label="Каталог">${links.map((link) => `<a class="nav-link" href="${link.href}">${esc(link.label)}</a>`).join("")}</nav>
         <div class="search">

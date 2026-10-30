@@ -93,22 +93,42 @@ LUMI.kinds = {
 LUMI.photos = Array.from({ length: 66 }, (_, index) => `image ${index + 12}.png`);
 
 (() => {
-  const deck = LUMI.photos.slice();
-  let seed = 20261025;
-  for (let index = deck.length - 1; index > 0; index -= 1) {
-    seed = (seed * 16807 + 11) % 2147483647;
-    const swap = seed % (index + 1);
-    const current = deck[index];
-    deck[index] = deck[swap];
-    deck[swap] = current;
-  }
-  const slots = [...LUMI.products, ...LUMI.categories, ...LUMI.generations, ...LUMI.hero, ...LUMI.promo];
-  slots.forEach((item, index) => {
-    item.image = deck[index % deck.length];
+  const shots = {
+    "oversized-sweater": ["image 34.png", "image 37.png"],
+    "hooded-puffer": ["image 53.png", "image 30.png"],
+    "knit-cardigan": ["image 62.png", "image 14.png", "image 23.png"],
+    "print-hoodie": ["image 68.png", "image 15.png", "image 20.png"],
+    "warm-onesie": ["image 73.png", "image 16.png"],
+    "straight-coat": ["image 29.png"],
+    "wide-trousers": ["image 17.png", "image 18.png", "image 19.png"],
+    "basic-sweatshirt": ["image 41.png", "image 40.png"],
+    "straight-jeans": ["image 31.png", "image 32.png", "image 28.png", "image 13.png"],
+    "knit-dress": ["image 75.png", "image 74.png", "image 70.png"],
+    "warm-jacket": ["image 63.png", "image 66.png", "image 64.png"],
+    "cotton-pajamas": ["image 16.png"],
+    "oversized-shirt": ["image 12.png"],
+  };
+  LUMI.products.forEach((item) => {
+    item.shots = shots[item.id] || [];
+    item.image = item.shots[0];
   });
-  const heroStyle = LUMI.hero.find((item) => item.id === "new");
-  if (heroStyle) {
-    heroStyle.image = "hero-style.png";
-    heroStyle.focus = "right center";
-  }
+  const covers = {
+    women: "image 26.png",
+    men: "image 40.png",
+    girls: "image 23.png",
+    boys: "image 64.png",
+    baby: "image 16.png",
+  };
+  LUMI.categories.forEach((item) => { item.image = covers[item.id]; });
+  LUMI.generations.forEach((item) => { item.image = covers[item.id]; });
+  const heroShots = { new: "hero-style.png", autumn: "image 29.png", family: "image 23.png" };
+  LUMI.hero.forEach((item) => {
+    item.image = heroShots[item.id];
+    item.focus = item.id === "new" ? "center center" : "center 20%";
+  });
+  const promoShots = { sale: "image 26.png", knit: "image 23.png", delivery: "image 22.png" };
+  LUMI.promo.forEach((item) => {
+    item.image = promoShots[item.id];
+    item.focus = "center 22%";
+  });
 })();

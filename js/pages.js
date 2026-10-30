@@ -164,6 +164,11 @@ const LumiPages = (() => {
       const viewed = [...others.filter((entry) => entry.category === item.category), ...others.filter((entry) => entry.category !== item.category)].slice(0, 5);
       const liked = others.filter((entry) => !viewed.includes(entry)).slice(0, 5);
       const lines = item.description.split(/(?<=\.)\s+/).filter(Boolean);
+      const frame = (index, focus, scale, alt) => {
+        const photos = item.shots && item.shots.length ? item.shots : [item.image];
+        const photo = photos[index] || photos[0];
+        return shot(photo, photos[index] ? "center 28%" : focus, photos[index] ? 1 : scale, alt);
+      };
       const srcNote = item.category === "baby" || item.category === "girls" || item.category === "boys"
         ? "Размер указан по росту. Если ребёнок между двумя значениями, берите больший."
         : "Берите свой обычный размер. Свободная посадка сидит с запахом, укороченная — ближе к телу.";
@@ -172,10 +177,10 @@ const LumiPages = (() => {
         <p class="crumbs"><a href="catalog.html?category=${item.category}">${LumiUI.esc(category.name)}</a> / <a href="catalog.html?category=${item.category}&kind=${item.garment}">${LumiUI.esc(kind)}</a></p>
         <div class="pdp-top">
           <div class="pdp-gallery">
-            ${shot(item.image, "center 8%", 1.9, item.name)}
-            ${shot(item.image, "center 40%", 1, "")}
-            ${shot(item.image, "center 100%", 2.1, "")}
-            ${shot(item.image, "center 22%", 3.1, "")}
+            ${frame(0, "center 8%", 1.9, item.name)}
+            ${frame(1, "center 40%", 1, "")}
+            ${frame(2, "center 100%", 2.1, "")}
+            ${frame(3, "center 22%", 3.1, "")}
           </div>
           <aside class="pdp-buy">
             <div class="pdp-title-row">
@@ -224,7 +229,7 @@ const LumiPages = (() => {
               </details>
             </div>
           </aside>
-          <div class="pdp-more">${shot(item.image, "center 32%", 1, "")}</div>
+          <div class="pdp-more">${frame(1, "center 32%", 1, "")}</div>
         </div>
         <section class="pdp-story">
           <div>
@@ -232,7 +237,7 @@ const LumiPages = (() => {
             <h2>${LumiUI.esc(lines[0] || item.name)}</h2>
             <p>${LumiUI.esc(lines.slice(1).join(" ") || item.description)}</p>
           </div>
-          ${shot(item.image, "center 18%", 1.45, "")}
+          ${frame(0, "center 18%", 1.45, "")}
         </section>
         ${viewed.length ? `<section class="pdp-also"><h2>Смотрели также</h2><div class="pdp-row">${viewed.map(productTile).join("")}</div></section>` : ""}
         ${liked.length ? `<section class="pdp-also"><h2>Вам может понравиться</h2><div class="pdp-row">${liked.map(productTile).join("")}</div></section>` : ""}
