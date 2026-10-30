@@ -154,6 +154,71 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
   .banner.is-plate .lead { font-size: 20px; }
   .banner.is-plate .hero-cta { font-size: 20px; }
 }
+.hero-wrap .banner.is-plate .banner-copy {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  width: auto;
+  margin: 0;
+  padding: 0;
+}
+.hero-wrap .hero-plate { width: 356px; height: 414px; padding: 0; }
+.hero-wrap .hero-plate::before {
+  width: 356px;
+  height: 414px;
+  background: #A6A6A6;
+  box-shadow: inset 0 0 0 1px #000000, inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+}
+.hero-wrap .eyebrow {
+  position: absolute;
+  left: 21px;
+  top: 89px;
+  margin: 0;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  line-height: normal;
+}
+.hero-wrap .banner h2 {
+  position: absolute;
+  left: 21px;
+  top: 116px;
+  width: 443px;
+  margin: 0;
+  font-family: Inter, "Segoe UI", sans-serif;
+  font-size: 55px;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0;
+}
+.hero-wrap .lead {
+  position: absolute;
+  left: 21px;
+  top: 273px;
+  width: 376px;
+  max-width: none;
+  margin: 0;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: normal;
+}
+.hero-wrap .banner .hero-cta {
+  position: absolute;
+  left: 21px;
+  top: 401px;
+  width: 363px;
+  height: 47px;
+  margin: 0;
+  padding: 0 24px;
+  font-family: Inter, "Segoe UI", sans-serif;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: normal;
+  letter-spacing: 0;
+}
+@media (max-width: 700px) {
+  .hero-wrap .banner.is-plate .banner-copy { left: 8px; top: 12px; transform: scale(0.78); transform-origin: top left; }
+}
 .banner-art, .banner-art .art, .art { position: absolute; inset: 0; }
 .art { overflow: hidden; }
 .art svg, .art .photo { width: 100%; height: 100%; object-fit: cover; }
