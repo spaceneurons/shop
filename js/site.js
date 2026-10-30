@@ -32,10 +32,12 @@ const LumiUI = (() => {
   }
 
   function navLinks() {
-    const labels = { women: "Женщины", men: "Мужчины", girls: "Девочки", boys: "Мальчики", baby: "Baby" };
     return [
-      ...LUMI.categories.map((item) => ({ href: `catalog.html?category=${item.id}`, label: labels[item.id] || item.name })),
-      { href: "catalog.html?sale=1", label: "Salé" },
+      ...LUMI.categories
+        .filter((item) => item.id !== "baby")
+        .map((item) => ({ href: `catalog.html?category=${item.id}`, label: item.name })),
+      { href: "catalog.html?sale=1", label: "Распродажа" },
+      { href: "stores.html", label: "Адреса" },
     ];
   }
 

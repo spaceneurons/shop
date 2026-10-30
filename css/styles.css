@@ -78,27 +78,29 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
 @media (min-width: 1024px) {
   .bar { position: relative; display: flex; align-items: center; }
   .nav {
-    position: absolute;
-    left: 50%;
-    top: 0;
+    position: static;
     z-index: 2;
     display: flex;
+    flex: 1 1 auto;
     align-items: center;
     justify-content: center;
-    gap: 22px;
+    gap: clamp(8px, 1.15vw, 22px);
     height: 100%;
-    transform: translateX(-50%);
+    min-width: max-content;
+    transform: none;
   }
   .search {
     display: flex;
     align-items: center;
+    flex: 0 1 248px;
     width: 248px;
+    min-width: 128px;
     height: 40px;
-    margin: 0 0 0 auto;
+    margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
-  .search input { height: 40px; border-radius: 0; padding-left: 36px; }
+  .search input { height: 40px; border-radius: 0; padding-left: 36px; text-overflow: ellipsis; }
   .search-icon { left: 12px; }
   .search-results { width: 100%; }
   .only-mobile { display: none; }
