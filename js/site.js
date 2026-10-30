@@ -630,22 +630,25 @@ const LumiUI = (() => {
     const pager = root.querySelector(".pager");
     function draw() {
       const slide = slides[index];
-      const plated = Boolean(root.closest(".hero-wrap")) || slide.plate;
+      const inHero = Boolean(root.closest(".hero-wrap"));
+      const plated = inHero || Boolean(slide.plate);
+      const heroType = inHero || plated || Boolean(slide.heroType);
       root.classList.toggle("is-plate", plated);
+      root.classList.toggle("is-hero-type", heroType);
       stage.innerHTML = `<div class="fade-up banner-art">${lumiArt({ ...slide, mode: "banner" })}<div class="banner-veil"></div></div>`;
       const title = slide.title.map((line) => `<span>${esc(line)}</span>`).join("");
-      const arrow = plated
+      const arrow = heroType
         ? `<svg class="hero-arrow" width="15.3" height="4.41838" viewBox="0 0 15.3 4.41838" fill="none" aria-hidden="true"><path d="M0 2.20919V2.50919H15V2.20919V1.90919H0V2.20919ZM15.2121 2.42132C15.3293 2.30416 15.3293 2.11421 15.2121 1.99706L13.3029 0.087868C13.1858 -0.0292892 12.9958 -0.0292892 12.8787 0.087868C12.7615 0.205025 12.7615 0.394975 12.8787 0.512132L14.5757 2.20919L12.8787 3.90624C12.7615 4.0234 12.7615 4.21335 12.8787 4.33051C12.9958 4.44767 13.1858 4.44767 13.3029 4.33051L15.2121 2.42132Z" fill="#5D5D5D"/></svg>`
         : icon("arrow");
-      const heroRect = root.closest(".hero-wrap")
+      const heroRect = plated
         ? `<svg class="hero-rect" width="356" height="414" viewBox="0 0 356 414" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="356" height="414" fill="#A6A6A6"/></svg>`
         : "";
-      copy.innerHTML = `<div class="fade-up${plated ? " hero-plate" : ""}">
+      copy.innerHTML = `<div class="fade-up${heroType ? " hero-plate" : ""}">
         ${heroRect}
         <p class="eyebrow">${esc(slide.eyebrow)}</p>
         <h2>${title}</h2>
         <p class="lead">${esc(slide.text)}</p>
-        <a class="btn ${plated ? "hero-cta" : "btn-light"}" href="${slide.href}">${esc(slide.cta)} ${arrow}</a>
+        <a class="btn ${heroType ? "hero-cta" : "btn-light"}" href="${slide.href}">${esc(slide.cta)} ${arrow}</a>
       </div>`;
       pager.innerHTML = slides.map((item, itemIndex) => `<button type="button" class="${itemIndex === index ? "is-on" : ""}" data-go-slide="${itemIndex}">${String(itemIndex + 1).padStart(2, "0")}${itemIndex === index && itemIndex < slides.length - 1 ? "<i></i>" : ""}</button>`).join("");
     }

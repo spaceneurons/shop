@@ -150,7 +150,8 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
   font-size: 18px;
   font-weight: 300;
 }
-.banner.is-plate .hero-cta svg { width: 15.3px; height: 4.41838px; fill: #5d5d5d; stroke: none; flex: none; }
+.banner.is-plate .hero-cta svg,
+.promo-wrap .banner.is-hero-type .hero-cta svg { width: 15.3px; height: 4.41838px; fill: #5d5d5d; stroke: none; flex: none; }
 .promo-wrap .banner.is-plate .banner-copy { width: min(700px, calc(100% - 24px)); }
 .promo-wrap .hero-plate::before { width: 100%; }
 .promo-wrap .banner.is-plate .lead { max-width: 430px; }
@@ -164,17 +165,25 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
   .banner.is-plate .lead { font-size: 20px; }
   .banner.is-plate .hero-cta { font-size: 20px; }
 }
-.hero-wrap .banner.is-plate .banner-copy {
+.hero-wrap .banner.is-plate .banner-copy,
+.promo-wrap .banner.is-hero-type .banner-copy {
   position: absolute;
   left: 27px;
   top: 21px;
   width: auto;
+  max-width: none;
   margin: 0;
   padding: 0;
 }
-.hero-wrap .hero-plate { width: 356px; height: 414px; padding: 0; }
-.hero-wrap .hero-plate::before { content: none; }
-.hero-wrap .hero-rect {
+.hero-wrap .hero-plate,
+.promo-wrap .banner.is-hero-type .hero-plate { width: 356px; height: 414px; padding: 0; }
+.hero-wrap .hero-plate::before,
+.promo-wrap .banner.is-hero-type .hero-plate::before { content: none; }
+.promo-wrap .banner.is-hero-type .banner-veil {
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.15) 48%, rgba(0, 0, 0, 0.02) 100%);
+}
+.hero-wrap .hero-rect,
+.promo-wrap .hero-rect {
   position: absolute;
   left: 0;
   top: 0;
@@ -183,7 +192,8 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
   width: 356px;
   height: 414px;
 }
-.hero-wrap .banner.is-plate .eyebrow {
+.hero-wrap .banner.is-plate .eyebrow,
+.promo-wrap .banner.is-hero-type .eyebrow {
   position: absolute;
   left: 21px;
   top: 89px;
@@ -199,7 +209,9 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
   color: #fff;
 }
 .hero-wrap .banner.is-plate h2,
-.hero-wrap .banner.is-plate h2 span {
+.hero-wrap .banner.is-plate h2 span,
+.promo-wrap .banner.is-hero-type h2,
+.promo-wrap .banner.is-hero-type h2 span {
   font-family: Inter, "Segoe UI", sans-serif;
   font-size: 55px;
   font-weight: 400;
@@ -208,7 +220,8 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
   line-height: 67px;
   letter-spacing: 0;
 }
-.hero-wrap .banner.is-plate h2 {
+.hero-wrap .banner.is-plate h2,
+.promo-wrap .banner.is-hero-type h2 {
   position: absolute;
   left: 21px;
   top: 116px;
@@ -217,7 +230,10 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
   margin: 0;
   color: #fff;
 }
-.hero-wrap .banner.is-plate .lead {
+.promo-wrap .banner.is-hero-type h2 { width: max-content; }
+.promo-wrap .banner.is-hero-type h2 span { white-space: nowrap; }
+.hero-wrap .banner.is-plate .lead,
+.promo-wrap .banner.is-hero-type .lead {
   position: absolute;
   left: 21px;
   top: 273px;
@@ -234,7 +250,8 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
   letter-spacing: 0;
   color: #fff;
 }
-.hero-wrap .banner.is-plate .hero-cta {
+.hero-wrap .banner.is-plate .hero-cta,
+.promo-wrap .banner.is-hero-type .hero-cta {
   position: absolute;
   left: 21px;
   top: 401px;
@@ -250,10 +267,12 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
   font-optical-sizing: auto;
   line-height: 24px;
   letter-spacing: 0;
+  background: #fff;
   color: #5d5d5d;
 }
 @media (max-width: 700px) {
-  .hero-wrap .banner.is-plate .banner-copy { left: 8px; top: 12px; transform: scale(0.78); transform-origin: top left; }
+  .hero-wrap .banner.is-plate .banner-copy,
+  .promo-wrap .banner.is-hero-type .banner-copy { left: 8px; top: 12px; transform: scale(0.78); transform-origin: top left; }
 }
 .banner-art, .banner-art .art, .art { position: absolute; inset: 0; }
 .art { overflow: hidden; }
