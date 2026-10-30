@@ -39,7 +39,7 @@ const LumiPages = (() => {
             </div>
           </div>
         </section>
-        ${LumiUI.section("Вам может понравиться", "catalog.html", `<div class="products suggest">${["wide-trousers", "basic-sweatshirt", "knit-dress", "warm-jacket"].map((id) => LumiUI.productCard(LUMI.product(id), { gloss: false, plain: true })).join("")}</div>`, "suggest", "Изучить все")}
+        ${LumiUI.section("Вам может понравиться", "catalog.html", `<div class="picks">${["wide-trousers", "basic-sweatshirt", "knit-dress", "warm-jacket"].map((id) => LumiUI.suggestCard(LUMI.product(id))).join("")}</div>`, "suggest", "Изучить все")}
       `;
       const banners = main.querySelectorAll("[data-banner]");
       LumiUI.mountBanner(banners[0], [LUMI.hero[0]]);

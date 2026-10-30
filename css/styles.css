@@ -223,10 +223,10 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
   .looks.gens { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .quick-add { opacity: 1; transform: none; }
 }
-.rail .product-media .art, .products.suggest .product-media .art { transition: transform 0.8s ease; }
-.rail .product:hover .art, .products.suggest .product:hover .art { transform: scale(1.06); }
-.rail .shine, .products.suggest .shine { display: none; }
-.rail .quick-add, .products.suggest .quick-add {
+.rail .product-media .art { transition: transform 0.8s ease; }
+.rail .product:hover .art { transform: scale(1.06); }
+.rail .shine { display: none; }
+.rail .quick-add {
   left: 14px;
   right: auto;
   bottom: 14px;
@@ -237,22 +237,57 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
   transition: opacity 0.28s ease, transform 0.28s ease;
 }
 .rail .product:hover .quick-add,
-.rail .product:focus-within .quick-add,
-.products.suggest .product:hover .quick-add,
-.products.suggest .product:focus-within .quick-add {
+.rail .product:focus-within .quick-add {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
 }
 @media (max-width: 799px) {
-  .rail .quick-add, .products.suggest .quick-add { opacity: 1; pointer-events: auto; transform: none; }
+  .rail .quick-add { opacity: 1; pointer-events: auto; transform: none; }
 }
-.rail .product:hover .quick-add:hover,
-.products.suggest .product:hover .quick-add:hover { transform: translateY(-1px); }
+.rail .product:hover .quick-add:hover { transform: translateY(-1px); }
 .block.suggest { margin-top: 36px; }
-.products.suggest { gap: 12px; }
-.products.suggest .product-media { aspect-ratio: 6 / 5; border-radius: 0; }
-.products.suggest .art .photo { object-position: center 18%; }
+.block .picks { padding-left: var(--gutter); padding-right: var(--gutter); }
+.picks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.pick { position: relative; }
+.pick-photo { position: relative; display: block; aspect-ratio: 6 / 5; overflow: hidden; background: #e6e4e1; border-radius: 0; }
+.pick-photo .art { transition: transform 0.45s ease; }
+.pick:hover .art { transform: scale(1.04); }
+.pick-photo .photo { object-position: center 16%; }
+.pick-veil { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.05) 42%, transparent 68%); pointer-events: none; }
+.pick-copy { position: absolute; z-index: 2; left: 16px; right: 16px; bottom: 14px; display: grid; gap: 2px; color: #fff; pointer-events: none; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35); }
+.pick-copy strong { font-size: 16px; font-weight: 400; line-height: 1.25; }
+.pick-copy em { font-style: normal; font-size: 13px; color: rgba(255, 255, 255, 0.9); }
+.pick-copy s { margin-left: 6px; color: rgba(255, 255, 255, 0.55); text-decoration: line-through; }
+.pick .heart {
+  top: 8px; right: 8px; width: 32px; height: 32px;
+  color: #1a1a1e; background: rgba(255, 255, 255, 0.88);
+}
+.pick .heart.is-on { color: #1a1a1e; }
+.pick .heart:hover { background: #fff; }
+.pick .quick-add {
+  top: 10px;
+  left: 10px;
+  right: auto;
+  bottom: auto;
+  width: auto;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition: opacity 0.28s ease, transform 0.28s ease;
+}
+.pick:hover .quick-add,
+.pick:focus-within .quick-add {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+@media (max-width: 799px) {
+  .pick .quick-add { opacity: 1; pointer-events: auto; transform: none; }
+}
+@media (min-width: 800px) {
+  .picks { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
 
 .signup { display: grid; gap: 12px; margin-top: 36px; padding: 0 var(--gutter); }
 .signup-photo { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: #e7e4df; }

@@ -471,6 +471,23 @@ const LumiUI = (() => {
     </article>`;
   }
 
+  function suggestCard(product) {
+    const price = `${LUMI.money(product.price)}${product.compareAt ? `<s>${LUMI.money(product.compareAt)}</s>` : ""}`;
+    const wished = LumiStore.wished(product.id);
+    return `<article class="pick">
+      <a class="pick-photo" href="product.html?id=${product.id}">
+        ${lumiArt({ image: product.image, mode: "packshot", focus: "center 18%" })}
+        <span class="pick-veil"></span>
+        <span class="pick-copy">
+          <strong>${esc(product.name)}</strong>
+          <em>${price}</em>
+        </span>
+      </a>
+      <button class="heart ${wished ? "is-on" : ""}" type="button" data-wish="${product.id}" aria-label="В избранное" aria-pressed="${wished}">${icon("heart")}</button>
+      <button class="quick-add" type="button" data-add="${product.id}">В корзину</button>
+    </article>`;
+  }
+
   function rail(cards) {
     return `<div class="rail">
       <div class="rail-track">${cards}</div>
@@ -570,5 +587,5 @@ const LumiUI = (() => {
     return `<svg viewBox="0 0 24 24" aria-hidden="true">${paths[name] || ""}</svg>`;
   }
 
-  return { boot, open: show, esc, productCard, lookCard, rail, section, banner, mountBanner, toast };
+  return { boot, open: show, esc, productCard, suggestCard, lookCard, rail, section, banner, mountBanner, toast };
 })();
