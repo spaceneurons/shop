@@ -110,9 +110,9 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
 @media (min-width: 800px) {
   .banner { height: 560px; }
 }
-.hero-wrap .banner-veil { background: none; }
 .promo-wrap .banner-veil { background: linear-gradient(90deg, rgba(16, 16, 18, 0.78) 0%, rgba(16, 16, 18, 0.62) 32%, rgba(16, 16, 18, 0.16) 58%, transparent 74%); }
-.hero-wrap .banner-copy { max-width: none; width: min(500px, calc(100% - 24px)); margin-left: 20px; padding: 0; }
+.banner.is-plate .banner-veil { background: none; }
+.banner.is-plate .banner-copy { max-width: none; width: min(500px, calc(100% - 24px)); margin-left: 20px; padding: 0; }
 .hero-plate { position: relative; padding: 88px 12px 0 21px; }
 .hero-plate::before {
   content: "";
@@ -124,10 +124,10 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
   height: calc(100% - 28px);
   background: #a6a6a6;
 }
-.hero-wrap .eyebrow { font-size: 13px; letter-spacing: 2px; color: #fff; }
-.hero-wrap .banner h2 { margin-top: 11px; font-size: 40px; line-height: 1.05; letter-spacing: 0; font-weight: 400; }
-.hero-wrap .lead { max-width: 336px; margin-top: 22px; font-size: 18px; line-height: 1.25; color: #fff; }
-.hero-wrap .banner .hero-cta {
+.banner.is-plate .eyebrow { font-size: 13px; letter-spacing: 2px; color: #fff; }
+.banner.is-plate h2 { margin-top: 11px; font-size: 40px; line-height: 1.05; letter-spacing: 0; font-weight: 400; }
+.banner.is-plate .lead { max-width: 336px; margin-top: 22px; font-size: 18px; line-height: 1.25; color: #fff; }
+.banner.is-plate .hero-cta {
   margin-top: 28px;
   margin-bottom: -8px;
   height: 47px;
@@ -140,16 +140,19 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
   font-size: 18px;
   font-weight: 300;
 }
-.hero-wrap .banner .hero-cta svg { width: 15.3px; height: 4.41838px; fill: #5d5d5d; stroke: none; flex: none; }
+.banner.is-plate .hero-cta svg { width: 15.3px; height: 4.41838px; fill: #5d5d5d; stroke: none; flex: none; }
+.promo-wrap .banner.is-plate .banner-copy { width: min(700px, calc(100% - 24px)); }
+.promo-wrap .hero-plate::before { width: 100%; }
+.promo-wrap .banner.is-plate .lead { max-width: 430px; }
 @media (max-width: 799px) {
-  .hero-wrap .banner-copy { margin-left: 12px; width: calc(100% - 24px); }
+  .banner.is-plate .banner-copy { margin-left: 12px; width: calc(100% - 24px); }
   .hero-plate { padding-top: 40px; }
-  .hero-wrap .banner .hero-cta { height: 44px; padding: 0 14px 0 16px; font-size: 15px; white-space: nowrap; }
+  .banner.is-plate .hero-cta { height: 44px; padding: 0 14px 0 16px; font-size: 15px; white-space: nowrap; }
 }
 @media (min-width: 800px) {
-  .hero-wrap .banner h2 { font-size: 55px; }
-  .hero-wrap .lead { font-size: 20px; }
-  .hero-wrap .banner .hero-cta { font-size: 20px; }
+  .banner.is-plate h2 { font-size: 55px; }
+  .banner.is-plate .lead { font-size: 20px; }
+  .banner.is-plate .hero-cta { font-size: 20px; }
 }
 .banner-art, .banner-art .art, .art { position: absolute; inset: 0; }
 .art { overflow: hidden; }

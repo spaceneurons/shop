@@ -49,7 +49,7 @@ const LUMI = {
   ],
   promo: [
     { id: "sale", eyebrow: "Только до 31 октября", title: ["Скидка 30%", "на выбранные стили"], text: "Обновите гардероб с выгодой — любимые вещи стали доступнее.", cta: "Смотреть коллекцию", href: "catalog.html?sale=1", palette: "greige", garment: "sweater", hair: "none", dark: true },
-    { id: "knit", eyebrow: "Новинки недели", title: ["Трикотаж,", "который хочется"], text: "Мягкие фактуры и свободный крой — уже можно примерить в каталоге.", cta: "К новинкам", href: "catalog.html?sort=new", palette: "taupe", garment: "cardigan", hair: "none", dark: true },
+    { id: "knit", eyebrow: "Новинки недели", title: ["Трикотаж,", "который хочется"], text: "Мягкие фактуры и свободный крой — уже можно примерить в каталоге.", cta: "К новинкам", href: "catalog.html?sort=new", palette: "taupe", garment: "cardigan", hair: "none", plate: true },
     { id: "delivery", eyebrow: "Доставка", title: ["Бесплатно", "от 8 000 ₽"], text: "Соберём заказ аккуратно и отправим по России в ближайший день.", cta: "Условия доставки", href: "delivery.html", palette: "fog", garment: "tote", hair: "none", dark: true },
   ],
   stores: [
