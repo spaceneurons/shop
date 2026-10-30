@@ -22,6 +22,7 @@ body {
   font-family: Inter, "Segoe UI", sans-serif;
   font-size: 16px;
   font-weight: 400;
+  font-optical-sizing: auto;
   line-height: 1.4;
 }
 [hidden] { display: none !important; }
@@ -187,6 +188,8 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
   font-family: Inter, "Segoe UI", sans-serif;
   font-size: 13.237px;
   font-weight: 400;
+  font-synthesis: none;
+  font-optical-sizing: auto;
   letter-spacing: 2px;
   line-height: 16px;
   text-transform: uppercase;
@@ -197,6 +200,8 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
   font-family: Inter, "Segoe UI", sans-serif;
   font-size: 55px;
   font-weight: 400;
+  font-synthesis: none;
+  font-optical-sizing: auto;
   line-height: 67px;
   letter-spacing: 0;
 }
@@ -220,6 +225,8 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
   font-family: Inter, "Segoe UI", sans-serif;
   font-size: 20px;
   font-weight: 400;
+  font-synthesis: none;
+  font-optical-sizing: auto;
   line-height: 24px;
   letter-spacing: 0;
   color: #fff;
@@ -236,6 +243,8 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
   font-family: Inter, "Segoe UI", sans-serif;
   font-size: 20px;
   font-weight: 300;
+  font-synthesis: none;
+  font-optical-sizing: auto;
   line-height: 24px;
   letter-spacing: 0;
   color: #5d5d5d;
