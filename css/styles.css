@@ -81,12 +81,13 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
     position: static;
     z-index: 2;
     display: flex;
-    flex: 1 1 auto;
+    flex: 0 1 auto;
     align-items: center;
-    justify-content: center;
-    gap: clamp(8px, 1.15vw, 22px);
+    justify-content: flex-start;
+    gap: 24px;
     height: 100%;
     min-width: max-content;
+    margin-left: clamp(12px, 11vw, 164px);
     transform: none;
   }
   .search {
@@ -96,7 +97,7 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
     width: 248px;
     min-width: 128px;
     height: 40px;
-    margin: 0;
+    margin: 0 0 0 auto;
     padding: 0;
     box-sizing: border-box;
   }
@@ -105,7 +106,10 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
   .search-results { width: 100%; }
   .only-mobile { display: none; }
   .header .logo { align-self: center; line-height: 1; }
-  .tools { margin-left: 8px; align-self: center; }
+  .tools { margin-left: 8px; align-self: center; flex: none; }
+}
+@media (min-width: 1024px) and (max-width: 1160px) {
+  .nav { margin-left: 8px; gap: 16px; }
 }
 
 .banner { position: relative; display: flex; align-items: center; height: 520px; overflow: hidden; border-radius: 0; color: #fff; }
