@@ -629,11 +629,15 @@ const LumiUI = (() => {
     function draw() {
       const slide = slides[index];
       stage.innerHTML = `<div class="fade-up banner-art">${lumiArt({ ...slide, mode: "banner" })}<div class="banner-veil"></div></div>`;
-      copy.innerHTML = `<div class="fade-up">
+      const title = slide.title.map((line) => `<span>${esc(line)}</span>`).join("");
+      const arrow = root.closest(".hero-wrap")
+        ? `<svg class="hero-arrow" width="15.3" height="4.41838" viewBox="0 0 15.3 4.41838" fill="none" aria-hidden="true"><path d="M0 2.20919V2.50919H15V2.20919V1.90919H0V2.20919ZM15.2121 2.42132C15.3293 2.30416 15.3293 2.11421 15.2121 1.99706L13.3029 0.087868C13.1858 -0.0292892 12.9958 -0.0292892 12.8787 0.087868C12.7615 0.205025 12.7615 0.394975 12.8787 0.512132L14.5757 2.20919L12.8787 3.90624C12.7615 4.0234 12.7615 4.21335 12.8787 4.33051C12.9958 4.44767 13.1858 4.44767 13.3029 4.33051L15.2121 2.42132Z" fill="#5D5D5D"/></svg>`
+        : icon("arrow");
+      copy.innerHTML = `<div class="fade-up${root.closest(".hero-wrap") ? " hero-plate" : ""}">
         <p class="eyebrow">${esc(slide.eyebrow)}</p>
-        <h2>${slide.title.map((line) => `<span>${esc(line)}</span>`).join("")}</h2>
+        <h2>${title}</h2>
         <p class="lead">${esc(slide.text)}</p>
-        <a class="btn btn-light" href="${slide.href}">${esc(slide.cta)} ${icon("arrow")}</a>
+        <a class="btn ${root.closest(".hero-wrap") ? "hero-cta" : "btn-light"}" href="${slide.href}">${esc(slide.cta)} ${arrow}</a>
       </div>`;
       pager.innerHTML = slides.map((item, itemIndex) => `<button type="button" class="${itemIndex === index ? "is-on" : ""}" data-go-slide="${itemIndex}">${String(itemIndex + 1).padStart(2, "0")}${itemIndex === index && itemIndex < slides.length - 1 ? "<i></i>" : ""}</button>`).join("");
     }
