@@ -29,13 +29,14 @@ const LumiStore = (() => {
     return () => listeners.delete(listener);
   }
 
-  function add(id, size) {
+  function add(id, size, qty = 1) {
     const product = LUMI.product(id);
     if (!product) return;
     const picked = size || LUMI.defaultSize(product.category);
+    const count = Math.max(1, Number(qty) || 1);
     const line = state.cart.find((item) => item.id === id && item.size === picked);
-    if (line) line.qty += 1;
-    else state.cart.push({ id, size: picked, qty: 1 });
+    if (line) line.qty += count;
+    else state.cart.push({ id, size: picked, qty: count });
     emit();
     return { product, size: picked };
   }

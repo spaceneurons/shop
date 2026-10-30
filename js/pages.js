@@ -114,6 +114,31 @@ const LumiPages = (() => {
     });
   }
 
+  function reviewOf(id) {
+    let n = 7;
+    for (const ch of id) n = (n * 31 + ch.charCodeAt(0)) % 1000;
+    return { score: 4 + ((n % 9) + 1) / 10, count: 6 + (n % 28) };
+  }
+
+  function starRow(score) {
+    const filled = Math.round(score);
+    return `<span class="pdp-stars" aria-hidden="true">${Array.from({ length: 5 }, (_, index) => `<svg viewBox="0 0 20 20"><path d="m10 1.8 2.2 4.6 5 .7-3.6 3.5.9 5L10 13.4 5.5 15.6l.9-5L2.8 7.1l5-.7z"${index < filled ? "" : ' fill="none"'}/></svg>`).join("")}</span>`;
+  }
+
+  function shot(image, focus, scale, alt) {
+    const src = `images/${encodeURIComponent(image)}`;
+    const zoom = scale && scale !== 1 ? `transform:scale(${scale});transform-origin:${focus}` : "";
+    return `<div class="pdp-shot"><img src="${src}" alt="${alt}" style="object-position:${focus};${zoom}"></div>`;
+  }
+
+  function productTile(entry) {
+    return `<a class="pdp-tile" href="product.html?id=${entry.id}">
+      ${shot(entry.image, "center 22%", 1, "")}
+      <strong>${LumiUI.esc(entry.name)}</strong>
+      <em>${LUMI.money(entry.price)}${entry.compareAt ? `<s>${LUMI.money(entry.compareAt)}</s>` : ""}</em>
+    </a>`;
+  }
+
   function product() {
     const id = new URLSearchParams(location.search).get("id");
     const item = LUMI.product(id);
@@ -128,54 +153,124 @@ const LumiPages = (() => {
         return;
       }
       const category = LUMI.category(item.category);
-      const related = LUMI.products.filter((entry) => entry.category === item.category && entry.id !== item.id).slice(0, 4);
-      let size = null;
-      let hinted = false;
+      const kind = LUMI.kinds[item.garment] || category.name;
+      const review = reviewOf(item.id);
+      const wished = LumiStore.wished(item.id);
+      const sizes = LUMI.sizes(item.category);
+      const fits = ["Свободная", "Обычная", "Укороченная"];
+      const fitDefault = /оверсайз|широкие/i.test(item.name) ? "Свободная" : "Обычная";
+      const colors = LUMI.products.filter((entry) => entry.category === item.category);
+      const others = LUMI.products.filter((entry) => entry.id !== item.id);
+      const viewed = [...others.filter((entry) => entry.category === item.category), ...others.filter((entry) => entry.category !== item.category)].slice(0, 5);
+      const liked = others.filter((entry) => !viewed.includes(entry)).slice(0, 5);
+      const lines = item.description.split(/(?<=\.)\s+/).filter(Boolean);
+      const srcNote = item.category === "baby" || item.category === "girls" || item.category === "boys"
+        ? "Размер указан по росту. Если ребёнок между двумя значениями, берите больший."
+        : "Берите свой обычный размер. Свободная посадка сидит с запахом, укороченная — ближе к телу.";
 
-      function draw() {
-        const sizes = LUMI.sizes(item.category);
-        main.innerHTML = `<div class="page">
-          <p class="crumbs"><a href="index.html">Главная</a> / <a href="catalog.html?category=${item.category}">${LumiUI.esc(category.name)}</a></p>
-          <div class="product-layout">
-            <div class="product-photo">${lumiArt({ image: item.image, mode: "packshot" })}</div>
-            <div>
-              <p class="kicker">${LumiUI.esc(category.name)}</p>
-              <h1 class="page-title">${LumiUI.esc(item.name)}</h1>
-              <p class="price-row">${LUMI.money(item.price)}${item.compareAt ? `<s>${LUMI.money(item.compareAt)}</s>` : ""}</p>
-              <p class="intro">${LumiUI.esc(item.description)}</p>
-              <p class="tiny">${LumiUI.esc(item.material)}</p>
-              <div class="sizes ${hinted && !size ? "shake" : ""}" style="margin-top:24px">
-                <p class="tiny" style="width:100%;color:var(--nav)">Размер</p>
-                ${sizes.map((entry) => `<button type="button" data-pick="${LumiUI.esc(entry)}" class="${size === entry ? "is-on" : ""}">${LumiUI.esc(entry)}</button>`).join("")}
-              </div>
-              <p class="form-error size-error" ${hinted && !size ? "" : "hidden"}>Выберите размер.</p>
-              <div class="buy-row">
-                <button class="btn" type="button" id="buy">Добавить в корзину</button>
-                <button class="btn btn-ghost" type="button" data-wish="${item.id}" data-wish-label="text">${LumiStore.wished(item.id) ? "В избранном" : "В избранное"}</button>
-              </div>
-              <p class="tiny">Бесплатная доставка от 8 000 ₽. Обмен и возврат — 14 дней, если вещь не носили.</p>
-            </div>
+      main.innerHTML = `<div class="page pdp">
+        <p class="crumbs"><a href="catalog.html?category=${item.category}">${LumiUI.esc(category.name)}</a> / <a href="catalog.html?category=${item.category}&kind=${item.garment}">${LumiUI.esc(kind)}</a></p>
+        <div class="pdp-top">
+          <div class="pdp-gallery">
+            ${shot(item.image, "center 8%", 1.9, item.name)}
+            ${shot(item.image, "center 40%", 1, "")}
+            ${shot(item.image, "center 100%", 2.1, "")}
+            ${shot(item.image, "center 22%", 3.1, "")}
           </div>
-          ${related.length ? `<section class="block"><h2>Ещё из раздела</h2><div class="products catalog">${related.map((entry) => LumiUI.productCard(entry)).join("")}</div></section>` : ""}
-        </div>`;
-        main.querySelectorAll("[data-pick]").forEach((button) => {
-          button.addEventListener("click", () => {
-            size = button.dataset.pick;
-            hinted = false;
-            draw();
-          });
+          <aside class="pdp-buy">
+            <div class="pdp-title-row">
+              <h1>${LumiUI.esc(item.name)}</h1>
+              <button class="heart ${wished ? "is-on" : ""}" type="button" data-wish="${item.id}" aria-label="В избранное" aria-pressed="${wished}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19s-7-4.4-7-8.2A3.6 3.6 0 0 1 12 8a3.6 3.6 0 0 1 7 2.8C19 14.6 12 19 12 19z"/></svg></button>
+            </div>
+            <p class="pdp-price">${item.compareAt ? `<s>${LUMI.money(item.compareAt)}</s>` : ""}<strong>${LUMI.money(item.price)}</strong></p>
+            <p class="pdp-rating">${starRow(review.score)} <span>${review.score.toFixed(1).replace(".", ",")} · ${review.count} отзывов</span></p>
+            <p class="pdp-label">Цвет: ${LumiUI.esc(item.color || kind)}</p>
+            <div class="pdp-swatches">${colors.map((entry) => `<a class="${entry.id === item.id ? "is-on" : ""}" href="product.html?id=${entry.id}" style="background:${entry.cloth}" aria-label="${LumiUI.esc(entry.color || entry.name)}"></a>`).join("")}</div>
+            <p class="pdp-label">Посадка</p>
+            <div class="pdp-fits">${fits.map((fit) => `<button type="button" data-fit="${LumiUI.esc(fit)}" class="${fit === fitDefault ? "is-on" : ""}">${LumiUI.esc(fit)}</button>`).join("")}</div>
+            <div class="pdp-label-row"><span>Размер</span><button type="button" data-size-guide>Таблица размеров</button></div>
+            <div class="pdp-sizes">${sizes.map((entry) => `<button type="button" data-pick="${LumiUI.esc(entry)}">${LumiUI.esc(entry)}</button>`).join("")}</div>
+            <p class="form-error size-error" hidden>Выберите размер.</p>
+            <div class="pdp-cart">
+              <label class="pdp-qty">Количество
+                <select id="pdp-qty">${[1, 2, 3, 4, 5].map((qty) => `<option value="${qty}">${qty}</option>`).join("")}</select>
+              </label>
+              <button class="pdp-add" type="button" id="buy">В корзину</button>
+            </div>
+            <p class="pdp-fine">Бесплатная доставка от ${LUMI.money(LUMI.freeShipping)}.</p>
+            <div class="pdp-notes">
+              <a href="delivery.html"><strong>Доставка</strong><span>Бесплатно от ${LUMI.money(LUMI.freeShipping)}. По России — в ближайший день после сборки.</span></a>
+              <a href="stores.html"><strong>Самовывоз</strong><span>Из магазина LUMI. Выбрать адрес</span></a>
+            </div>
+            <p class="pdp-label">Важно знать</p>
+            <div class="pdp-know">${lines.map((line) => `<p>${LumiUI.esc(line)}</p>`).join("")}</div>
+            <div class="pdp-folds">
+              <details id="pdp-size" open>
+                <summary>Размер и посадка</summary>
+                <p>${srcNote}</p>
+                <p>На фото — спокойный студийный свет, без ретуши силуэта.</p>
+              </details>
+              <details>
+                <summary>Ткань и уход</summary>
+                <p>${LumiUI.esc(item.material)}. Деликатная стирка при 30°C, без отбеливателя. Сушить в расправленном виде.</p>
+              </details>
+              <details>
+                <summary>О вещи</summary>
+                <p>${LumiUI.esc(item.description)}</p>
+              </details>
+              <details>
+                <summary>Доставка и возврат</summary>
+                <p>От ${LUMI.money(LUMI.freeShipping)} доставка бесплатная. 14 дней на обмен и возврат, если вещь не носили. <a href="delivery.html">Доставка</a> · <a href="returns.html">Возврат</a></p>
+              </details>
+            </div>
+          </aside>
+          <div class="pdp-more">${shot(item.image, "center 32%", 1, "")}</div>
+        </div>
+        <section class="pdp-story">
+          <div>
+            <p class="kicker">${LumiUI.esc(item.material)}</p>
+            <h2>${LumiUI.esc(lines[0] || item.name)}</h2>
+            <p>${LumiUI.esc(lines.slice(1).join(" ") || item.description)}</p>
+          </div>
+          ${shot(item.image, "center 18%", 1.45, "")}
+        </section>
+        ${viewed.length ? `<section class="pdp-also"><h2>Смотрели также</h2><div class="pdp-row">${viewed.map(productTile).join("")}</div></section>` : ""}
+        ${liked.length ? `<section class="pdp-also"><h2>Вам может понравиться</h2><div class="pdp-row">${liked.map(productTile).join("")}</div></section>` : ""}
+      </div>`;
+
+      let size = null;
+      main.querySelectorAll("[data-fit]").forEach((button) => {
+        button.addEventListener("click", () => {
+          main.querySelectorAll("[data-fit]").forEach((entry) => entry.classList.toggle("is-on", entry === button));
         });
-        main.querySelector("#buy").addEventListener("click", () => {
-          if (!size) {
-            hinted = true;
-            draw();
-            return;
-          }
-          LumiStore.add(item.id, size);
-          LumiUI.open("cart");
+      });
+      main.querySelectorAll("[data-pick]").forEach((button) => {
+        button.addEventListener("click", () => {
+          size = button.dataset.pick;
+          main.querySelectorAll("[data-pick]").forEach((entry) => entry.classList.toggle("is-on", entry === button));
+          main.querySelector(".size-error").hidden = true;
+          main.querySelector(".pdp-sizes").classList.remove("shake");
         });
-      }
-      draw();
+      });
+      main.querySelector("[data-size-guide]").addEventListener("click", () => {
+        const fold = document.getElementById("pdp-size");
+        fold.open = true;
+        fold.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      });
+      main.querySelector("#buy").addEventListener("click", () => {
+        if (!size) {
+          const row = main.querySelector(".pdp-sizes");
+          row.classList.remove("shake");
+          void row.offsetWidth;
+          row.classList.add("shake");
+          main.querySelector(".size-error").hidden = false;
+          return;
+        }
+        const qty = Number(main.querySelector("#pdp-qty").value) || 1;
+        const result = LumiStore.add(item.id, size, qty);
+        if (result) LumiUI.toast("Добавили в корзину", `${result.product.name} · ${result.size}`);
+        LumiUI.open("cart");
+      });
     });
   }
 
