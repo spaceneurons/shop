@@ -7,6 +7,8 @@ const LumiUI = (() => {
   let open = null;
   let search = "";
   let searchOpen = false;
+  let menuTab = "women";
+  let menuOpen = "";
 
   function esc(value) {
     return String(value)
@@ -43,7 +45,7 @@ const LumiUI = (() => {
     const links = navLinks();
     return `<header class="header" id="header">
       <div class="frame bar">
-        <button class="icon-btn only-mobile" type="button" data-open="menu" aria-label="Открыть меню">${icon("menu")}</button>
+        <button class="icon-btn menu-btn" type="button" data-open="menu" aria-label="Открыть меню" aria-expanded="false" aria-controls="menu">${icon("menu")}</button>
         <a class="logo" href="index.html">LUMI</a>
         <nav class="nav" aria-label="Каталог">${links.map((link) => `<a class="nav-link" href="${link.href}">${esc(link.label)}</a>`).join("")}</nav>
         <div class="search">
@@ -90,6 +92,9 @@ const LumiUI = (() => {
 
   function bind() {
     document.addEventListener("click", onClick);
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && open) hide();
+    });
     document.addEventListener("input", onInput);
     document.addEventListener("change", onChange);
     document.addEventListener("submit", onSubmit);
@@ -136,8 +141,34 @@ const LumiUI = (() => {
       show(opener.dataset.open);
       return;
     }
-    if (event.target.closest("[data-close]")) {
+    if (event.target.id === "overlay" || event.target.closest("[data-close]")) {
       hide();
+      return;
+    }
+    const menuTabBtn = event.target.closest("[data-menu-tab]");
+    if (menuTabBtn) {
+      menuTab = menuTabBtn.dataset.menuTab;
+      menuOpen = "";
+      paintMenu();
+      return;
+    }
+    const menuToggle = event.target.closest("[data-menu-toggle]");
+    if (menuToggle) {
+      const id = menuToggle.dataset.menuToggle;
+      const item = menuToggle.closest(".drawer-item");
+      const sub = item.querySelector(".drawer-sub");
+      const willOpen = menuOpen !== id;
+      menuOpen = willOpen ? id : "";
+      document.querySelectorAll("#menu .drawer-sub.is-on").forEach((node) => node.classList.remove("is-on"));
+      document.querySelectorAll("#menu .drawer-plus.is-on").forEach((node) => {
+        node.classList.remove("is-on");
+        node.setAttribute("aria-expanded", "false");
+      });
+      if (willOpen) {
+        sub.classList.add("is-on");
+        menuToggle.classList.add("is-on");
+        menuToggle.setAttribute("aria-expanded", "true");
+      }
       return;
     }
     const wish = event.target.closest("[data-wish]");
@@ -283,8 +314,11 @@ const LumiUI = (() => {
     open = null;
     document.getElementById("overlay").hidden = true;
     document.getElementById("sheet").hidden = true;
-    document.getElementById("menu").hidden = true;
+    const menu = document.getElementById("menu");
+    menu.hidden = true;
+    menu.classList.remove("is-in");
     document.getElementById("modal").hidden = true;
+    document.querySelector(".menu-btn")?.setAttribute("aria-expanded", "false");
   }
 
   function stateCartEmpty() {
@@ -333,9 +367,68 @@ const LumiUI = (() => {
     }`;
   }
 
+  function catalogHref(category, extra) {
+    const params = new URLSearchParams({ category, ...extra });
+    return `catalog.html?${params}`;
+  }
+
+  function wearGroup(id, label, category, kinds) {
+    return {
+      id,
+      label,
+      href: `catalog.html?category=${category}`,
+      children: kinds.map((kind) => ({ label: LUMI.kinds[kind], href: catalogHref(category, { kind }) })),
+    };
+  }
+
+  function menuSections() {
+    return {
+      women: [
+        { label: "Новинки", href: catalogHref("women", { fresh: "1" }) },
+        wearGroup("women-wear", "Одежда", "women", ["sweater", "coat", "trousers", "shirt"]),
+        { rule: true },
+        { label: "Распродажа", href: "catalog.html?category=women&sale=1" },
+        { rule: true },
+        { label: "Адреса магазинов", href: "stores.html" },
+      ],
+      men: [
+        { label: "Новинки", href: catalogHref("men", { fresh: "1" }) },
+        wearGroup("men-wear", "Одежда", "men", ["puffer", "sweatshirt", "jeans"]),
+        { rule: true },
+        { label: "Распродажа", href: "catalog.html?sale=1" },
+        { rule: true },
+        { label: "Адреса магазинов", href: "stores.html" },
+      ],
+      kids: [
+        wearGroup("girls-wear", "Девочки", "girls", ["cardigan", "dress"]),
+        wearGroup("boys-wear", "Мальчики", "boys", ["hoodie", "jacket"]),
+        wearGroup("baby-wear", "Малыши", "baby", ["onesie", "pajamas"]),
+        { rule: true },
+        { label: "Новинки", href: "catalog.html?fresh=1" },
+        { label: "Распродажа", href: "catalog.html?sale=1" },
+        { rule: true },
+        { label: "Адреса магазинов", href: "stores.html" },
+      ],
+    };
+  }
+
+  function menuRow(item) {
+    if (item.rule) return `<hr class="drawer-rule">`;
+    const expanded = Boolean(item.children) && menuOpen === item.id;
+    const plus = item.children
+      ? `<button class="drawer-plus${expanded ? " is-on" : ""}" type="button" data-menu-toggle="${item.id}" aria-expanded="${expanded}" aria-label="Показать раздел">+</button>`
+      : "";
+    const sub = item.children
+      ? `<div class="drawer-sub${expanded ? " is-on" : ""}"><div>${item.children.map((child) => `<a class="drawer-link" href="${child.href}">${esc(child.label)}</a>`).join("")}</div></div>`
+      : "";
+    return `<div class="drawer-item"><div class="drawer-row"><a class="drawer-link" href="${item.href}">${esc(item.label)}</a>${plus}</div>${sub}</div>`;
+  }
+
   function paintMenu() {
-    const links = navLinks().map((link) => [link.href, link.label]);
-    openSheet("left", `<h2 class="logo">LUMI</h2><nav class="menu-nav">${links.map(([href, label], index) => `<a href="${href}" style="animation-delay:${index * 40}ms">${esc(label)}</a>`).join("")}</nav>`);
+    const tabs = [["women", "Женщины"], ["men", "Мужчины"], ["kids", "Дети"]];
+    const sections = menuSections()[menuTab] || [];
+    openSheet("left", `<div class="drawer-tabs">${tabs.map(([id, label]) => `<button type="button" data-menu-tab="${id}" class="${id === menuTab ? "is-on" : ""}">${label}</button>`).join("")}</div><nav class="drawer-list" aria-label="Разделы">${sections.map(menuRow).join("")}</nav>`);
+    document.querySelector(".menu-btn")?.setAttribute("aria-expanded", "true");
   }
 
   function paintMobileSearch() {
@@ -429,8 +522,13 @@ const LumiUI = (() => {
     const sheet = document.getElementById("sheet");
     if (side === "left") {
       sheet.hidden = true;
+      const arriving = menu.hidden;
+      menu.classList.add("catalog-drawer");
+      if (arriving) menu.classList.remove("is-in");
       menu.hidden = false;
       menu.innerHTML = `<button class="close" type="button" data-close aria-label="Закрыть">×</button>${html}`;
+      if (arriving) requestAnimationFrame(() => requestAnimationFrame(() => menu.classList.add("is-in")));
+      else menu.classList.add("is-in");
       return;
     }
     menu.hidden = true;

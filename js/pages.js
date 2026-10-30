@@ -51,10 +51,12 @@ const LumiPages = (() => {
     const params = new URLSearchParams(location.search);
     const category = params.get("category");
     const sale = params.get("sale") === "1";
+    const freshOnly = params.get("fresh") === "1";
+    const kind = params.get("kind");
     const initial = params.get("sort");
     let sort = initial === "price-asc" || initial === "price-desc" ? initial : "new";
     const categoryName = LUMI.category(category)?.name;
-    const title = sale ? "Распродажа" : categoryName || "Каталог";
+    const title = freshOnly ? "Новинки" : kind && LUMI.kinds[kind] ? LUMI.kinds[kind] : sale ? "Распродажа" : categoryName || "Каталог";
     document.title = `${title} — LUMI`;
 
     LumiUI.boot((main) => {
@@ -62,6 +64,8 @@ const LumiPages = (() => {
         let items = LUMI.products.filter((item) => {
           if (category && item.category !== category) return false;
           if (sale && !item.compareAt) return false;
+          if (freshOnly && !item.fresh) return false;
+          if (kind && item.garment !== kind) return false;
           return true;
         });
         if (sort === "price-asc") items = [...items].sort((a, b) => a.price - b.price);

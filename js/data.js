@@ -74,6 +74,21 @@ LUMI.defaultSize = (category) => {
   if (category === "girls" || category === "boys") return "116";
   return "M";
 };
+LUMI.kinds = {
+  sweater: "Свитеры",
+  coat: "Пальто",
+  trousers: "Брюки",
+  shirt: "Рубашки",
+  puffer: "Пуховики",
+  sweatshirt: "Свитшоты",
+  jeans: "Джинсы",
+  cardigan: "Кардиганы",
+  dress: "Платья",
+  hoodie: "Худи",
+  jacket: "Куртки",
+  onesie: "Комбинезоны",
+  pajamas: "Пижамы",
+};
 
 LUMI.photos = Array.from({ length: 66 }, (_, index) => `image ${index + 12}.png`);
 
