@@ -553,11 +553,10 @@ const LumiUI = (() => {
   }
 
   function productCard(product, options = {}) {
-    const gloss = options.gloss === false ? "" : `<span class="shine"></span>`;
     const category = options.plain ? "" : `<p>${esc(LUMI.category(product.category).name)}</p>`;
     return `<article class="product">
       <div class="product-media">
-        <a href="product.html?id=${product.id}" aria-label="${esc(product.name)}">${lumiArt({ image: product.image, mode: "packshot" })}${gloss}</a>
+        <a href="product.html?id=${product.id}" aria-label="${esc(product.name)}">${lumiArt({ image: product.image, mode: "packshot" })}</a>
         <button class="heart ${LumiStore.wished(product.id) ? "is-on" : ""}" type="button" data-wish="${product.id}" aria-label="В избранное" aria-pressed="${LumiStore.wished(product.id)}">${icon("heart")}</button>
         <button class="quick-add" type="button" data-add="${product.id}">В корзину</button>
       </div>

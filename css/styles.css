@@ -363,16 +363,19 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
 .heart { position: absolute; top: 6px; right: 6px; z-index: 2; color: #6d6a66; }
 .heart.is-on { color: var(--ink); }
 .heart.is-on svg { fill: currentColor; }
-.quick-add { position: absolute; left: 8px; right: 8px; bottom: 8px; z-index: 2; }
+.quick-add {
+  position: absolute; left: 8px; right: 8px; bottom: 8px; z-index: 2;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.28s ease;
+}
+.product:hover .quick-add,
+.product:focus-within .quick-add { opacity: 1; pointer-events: auto; }
 .product-copy { display: block; margin-top: 0; padding: 10px 12px 18px; }
 .product-copy h3 { margin: 0; font-size: 14px; line-height: normal; font-weight: 400; letter-spacing: 0.32px; }
 .product-copy p { margin: 4px 0 0; color: #9a9aa0; font-size: 12px; font-weight: 400; }
 .product-copy strong { display: flex; gap: 8px; align-items: baseline; margin-top: 6px; font-size: 14px; font-weight: 400; }
 .product-copy s { color: #a3a3a8; font-weight: 400; font-size: 14px; }
-.shine { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
-.shine::after { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 32%, rgba(255,255,255,.45) 48%, transparent 64%); transform: translateX(-130%); }
-.product:hover .shine::after { transform: translateX(130%); transition: transform 0.8s ease; }
-@media (max-width: 1023px) { .quick-add { opacity: 1; } }
+@media (max-width: 1023px) { .quick-add { opacity: 1; pointer-events: auto; } }
 @media (min-width: 800px) {
   .products, .products.home, .products.catalog { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
@@ -380,11 +383,9 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
   .looks, .looks.gens { grid-auto-flow: row; grid-auto-columns: auto; overflow: visible; padding-bottom: 0; }
   .looks { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .looks.gens { grid-template-columns: repeat(5, minmax(0, 1fr)); }
-  .quick-add { opacity: 1; transform: none; }
 }
 .rail .product-media .art { transition: transform 0.8s ease; }
 .rail .product:hover .art { transform: scale(1.06); }
-.rail .shine { display: none; }
 .rail .quick-add {
   left: 14px;
   right: auto;

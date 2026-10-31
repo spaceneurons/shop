@@ -6,7 +6,7 @@ const LumiPages = (() => {
         const category = LUMI.category(item.category);
         return LumiUI.lookCard({ id: category.id, name: category.name, image: item.image }, "zoom");
       }).join("");
-      const arrivals = LUMI.products.filter((item) => item.fresh).map((item) => LumiUI.productCard(item, { gloss: false })).join("");
+      const arrivals = LUMI.products.filter((item) => item.fresh).map((item) => LumiUI.productCard(item)).join("");
       main.innerHTML = `
         <div class="hero-wrap">${LumiUI.banner([LUMI.hero[0]])}</div>
         ${LumiUI.section("Выбрать категорию", "", `<div class="products home">${fresh}</div>`, "inset")}
@@ -79,7 +79,7 @@ const LumiPages = (() => {
         const saleQuery = sale ? "&sale=1" : "";
         const chips = [
           ["catalog.html", "Все", !category && !sale],
-          ...LUMI.categories.map((item) => [`catalog.html?category=${item.id}${saleQuery}`, item.name, category === item.id]),
+          ...LUMI.categories.filter((item) => item.id !== "baby").map((item) => [`catalog.html?category=${item.id}${saleQuery}`, item.name, category === item.id]),
           ["catalog.html?sale=1", "Распродажа", sale && !category],
         ];
         main.innerHTML = `<div class="page fade-up">
