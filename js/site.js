@@ -640,11 +640,7 @@ const LumiUI = (() => {
       const arrow = heroType
         ? `<svg class="hero-arrow" width="15.3" height="4.41838" viewBox="0 0 15.3 4.41838" fill="none" aria-hidden="true"><path d="M0 2.20919V2.50919H15V2.20919V1.90919H0V2.20919ZM15.2121 2.42132C15.3293 2.30416 15.3293 2.11421 15.2121 1.99706L13.3029 0.087868C13.1858 -0.0292892 12.9958 -0.0292892 12.8787 0.087868C12.7615 0.205025 12.7615 0.394975 12.8787 0.512132L14.5757 2.20919L12.8787 3.90624C12.7615 4.0234 12.7615 4.21335 12.8787 4.33051C12.9958 4.44767 13.1858 4.44767 13.3029 4.33051L15.2121 2.42132Z" fill="#5D5D5D"/></svg>`
         : icon("arrow");
-      const heroRect = plated
-        ? `<svg class="hero-rect" width="356" height="414" viewBox="0 0 356 414" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="356" height="414" fill="#A6A6A6"/></svg>`
-        : "";
       copy.innerHTML = `<div class="fade-up${heroType ? " hero-plate" : ""}">
-        ${heroRect}
         <p class="eyebrow">${esc(slide.eyebrow)}</p>
         <h2>${title}</h2>
         <p class="lead">${esc(slide.text)}</p>

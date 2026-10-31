@@ -124,16 +124,7 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
 }
 .banner.is-plate .banner-copy { max-width: none; width: min(500px, calc(100% - 24px)); margin-left: 20px; padding: 0; }
 .hero-plate { position: relative; padding: 88px 12px 0 21px; }
-.hero-plate::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  left: 0;
-  top: 0;
-  width: min(356px, 100%);
-  height: calc(100% - 28px);
-  background: #a6a6a6;
-}
+.hero-plate::before { content: none; }
 .banner.is-plate .eyebrow { font-size: 13px; letter-spacing: 2px; color: #fff; }
 .banner.is-plate h2 { margin-top: 11px; font-size: 40px; line-height: 1.05; letter-spacing: 0; font-weight: 400; }
 .banner.is-plate .lead { max-width: 336px; margin-top: 22px; font-size: 18px; line-height: 1.25; color: #fff; }
@@ -177,20 +168,8 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
 }
 .hero-wrap .hero-plate,
 .promo-wrap .banner.is-hero-type .hero-plate { width: 356px; height: 414px; padding: 0; }
-.hero-wrap .hero-plate::before,
-.promo-wrap .banner.is-hero-type .hero-plate::before { content: none; }
 .promo-wrap .banner.is-hero-type .banner-veil {
   background: linear-gradient(90deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.15) 48%, rgba(0, 0, 0, 0.02) 100%);
-}
-.hero-wrap .hero-rect,
-.promo-wrap .hero-rect {
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: -1;
-  display: block;
-  width: 356px;
-  height: 414px;
 }
 .hero-wrap .banner.is-plate .eyebrow,
 .promo-wrap .banner.is-hero-type .eyebrow {
