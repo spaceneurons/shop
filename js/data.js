@@ -43,7 +43,7 @@ const LUMI = {
     { id: "oversized-shirt", name: "Рубашка оверсайз", category: "women", price: 6490, compareAt: 7990, garment: "shirt", color: "Белый", cloth: "#f7f4ef", cloth2: "#e4ddd4", material: "Хлопок", description: "Свободная рубашка из плотного хлопка. Хорошо смотрится навыпуск и заправленной наполовину." },
   ],
   hero: [
-    { id: "new", eyebrow: "Новая коллекция", title: ["Стиль в каждом", "моменте"], text: "Создайте свой безупречный образ для любого повода", cta: "Перейти к новой коллекции", href: "catalog.html?sort=new", palette: "taupe", garment: "sweater", hair: "long" },
+    { id: "new", eyebrow: "Новая коллекция", title: ["Стиль в каждом", "моменте"], text: "Создайте свой безупречный образ\nдля любого повода", cta: "Перейти к новой коллекции", href: "catalog.html?sort=new", palette: "taupe", garment: "sweater", hair: "long" },
     { id: "autumn", eyebrow: "Осенний гардероб", title: ["Тихие", "оттенки", "сезона"], text: "Пальто, трикотаж и деним — собранные так, чтобы носить их каждый день.", cta: "Смотреть образы", href: "catalog.html?category=women", palette: "greige", garment: "coat", hair: "long" },
     { id: "family", eyebrow: "Для всей семьи", title: ["Один дом,", "много", "стилей"], text: "Женщинам, мужчинам и детям — в одной спокойной палитре, без крикливых деталей.", cta: "Выбрать категорию", href: "catalog.html", palette: "stone", garment: "sweater", hair: "twins" },
   ],

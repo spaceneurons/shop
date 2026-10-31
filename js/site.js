@@ -643,7 +643,7 @@ const LumiUI = (() => {
       copy.innerHTML = `<div class="fade-up${heroType ? " hero-plate" : ""}">
         <p class="eyebrow">${esc(slide.eyebrow)}</p>
         <h2>${title}</h2>
-        <p class="lead">${esc(slide.text)}</p>
+        <p class="lead">${esc(slide.text).replaceAll("\n", "<br>")}</p>
         <a class="btn ${heroType ? "hero-cta" : "btn-light"}" href="${slide.href}">${esc(slide.cta)} ${arrow}</a>
       </div>`;
       pager.innerHTML = slides.map((item, itemIndex) => `<button type="button" class="${itemIndex === index ? "is-on" : ""}" data-go-slide="${itemIndex}">${String(itemIndex + 1).padStart(2, "0")}${itemIndex === index && itemIndex < slides.length - 1 ? "<i></i>" : ""}</button>`).join("");
