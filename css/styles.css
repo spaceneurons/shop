@@ -512,7 +512,6 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
 .pdp-gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .pdp-shot { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: #e6e4e1; }
 .pdp-shot img { width: 100%; height: 100%; object-fit: cover; }
-.pdp-more .pdp-shot { aspect-ratio: 4 / 5; }
 .pdp-buy { display: grid; align-content: start; }
 .pdp-title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
 .pdp-title-row h1 { margin: 0; font-size: clamp(28px, 3vw, 40px); line-height: 1.12; font-weight: 400; letter-spacing: 0; }
@@ -560,9 +559,6 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
 .pdp-folds details[open] summary::after { content: "–"; }
 .pdp-folds details p { margin: 0 0 16px; color: var(--nav); font-size: 14px; line-height: 1.45; }
 .pdp-folds a { text-decoration: underline; text-underline-offset: 3px; }
-.pdp-story { display: grid; gap: 20px; margin-top: 56px; align-items: center; }
-.pdp-story h2 { margin: 12px 0 0; font-size: clamp(26px, 3vw, 36px); line-height: 1.2; font-weight: 400; }
-.pdp-story p { margin: 12px 0 0; color: var(--nav); font-size: 16px; max-width: 460px; }
 .pdp-also { margin-top: 56px; }
 .pdp-also h2 { margin: 0 0 16px; font-size: 22px; font-weight: 400; }
 .pdp-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 8px; }
@@ -575,9 +571,7 @@ textarea { padding: 10px 12px; min-height: 110px; border-radius: 12px; resize: v
 @media (min-width: 1000px) {
   .pdp-top { grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.72fr); column-gap: 36px; row-gap: 8px; }
   .pdp-gallery { grid-column: 1; grid-row: 1; }
-  .pdp-buy { grid-column: 2; grid-row: 1 / span 2; position: sticky; top: 84px; }
-  .pdp-more { grid-column: 1; grid-row: 2; }
-  .pdp-story { grid-template-columns: 1fr 1fr; gap: 48px; }
+  .pdp-buy { grid-column: 2; grid-row: 1; position: sticky; top: 84px; }
 }
 
 .info-grid { display: grid; gap: 16px; margin-top: 32px; }

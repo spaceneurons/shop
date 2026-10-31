@@ -229,16 +229,7 @@ const LumiPages = (() => {
               </details>
             </div>
           </aside>
-          <div class="pdp-more">${frame(1, "center 32%", 1, "")}</div>
         </div>
-        <section class="pdp-story">
-          <div>
-            <p class="kicker">${LumiUI.esc(item.material)}</p>
-            <h2>${LumiUI.esc(lines[0] || item.name)}</h2>
-            <p>${LumiUI.esc(lines.slice(1).join(" ") || item.description)}</p>
-          </div>
-          ${frame(0, "center 18%", 1.45, "")}
-        </section>
         ${viewed.length ? `<section class="pdp-also"><h2>Смотрели также</h2><div class="pdp-row">${viewed.map(productTile).join("")}</div></section>` : ""}
         ${liked.length ? `<section class="pdp-also"><h2>Вам может понравиться</h2><div class="pdp-row">${liked.map(productTile).join("")}</div></section>` : ""}
       </div>`;
